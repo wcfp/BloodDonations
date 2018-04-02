@@ -33,6 +33,7 @@ How to setup:
     DB_PASSWORD=blooddonations_root
  - run php artisan migrate in the terminal
  - run php artisan db:seed
+ - run composer install again
  - to be continued
  
  
