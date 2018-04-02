@@ -40,3 +40,13 @@ How to setup:
  - run php artisan db:seed
  
  - to be continued
+ 
+ 
+How to contribute:
+ - Pick a task from YouTrack
+ - Create a branch called "[your nickname/task number]" (e.g. andrei/BDMS-11)
+ - Commit and push all your changes here
+ - Fix merge conflicts with the latest master
+ - Try to have tests for the backend stuff
+ - Go to github, create a pull request for your branch
+ - Wait for it to get accepted
