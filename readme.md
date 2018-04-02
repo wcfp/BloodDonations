@@ -44,6 +44,7 @@ How to setup:
  
 How to contribute:
  - Pick a task from YouTrack
+ - Make sure you're on the latest master before you start a task otherwise there will be conflicts
  - Create a branch called "[your nickname/task number]" (e.g. andrei/BDMS-11)
  - Commit and push all your changes here
  - Fix merge conflicts with the latest master
