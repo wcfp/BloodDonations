@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get("/users/1", function (Request $request) {
+   return [
+       'name' => $request->name,
+       'password' => 'pass',
+   ];
+});
+
+Auth::routes();
