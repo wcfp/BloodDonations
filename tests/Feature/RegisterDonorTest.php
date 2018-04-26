@@ -3,27 +3,56 @@
 namespace Tests\Feature;
 
 use App\User;
+use App\UserType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class RegisterDonorTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+
+    private $data = [
+        'name' => "andrei",
+        'surname' => 'gavrila',
+        'email' => 'email@test2.com',
+        'password' => 'password',
+        'password_confirmation' => 'password'
+    ];
+
+    public function testRegisteredUserBecomesDonor()
     {
-        $data = [
-            'name' => "andrei",
-            'surname' => 'gavrila',
-            'email' => 'email@test2.com',
-            'password' => 'password',
-            'password_confirmation' => 'password'
-        ];
-        $this->post("/api/register", $data)->assertSuccessful();
-        $this->assertEquals(1, User::count());
+        $this->assertFalse(User::whereRole(UserType::DOCTOR)->exists());
+        $this->json('post', "/api/auth/register", $this->data)
+            ->assertSuccessful()
+            ->assertJson(['message' => 'User created']);
+
+        $user = User::first();
+        $this->assertNotNull($user);
+        $this->assertEquals(UserType::DOCTOR, $user->role);
+        $this->assertEquals($this->data['name'], $user->name);
+        $this->assertEquals($this->data['surname'], $user->surname);
+        $this->assertEquals($this->data['email'], $user->email);
+    }
+
+    public function testPasswordIsHashed()
+    {
+        $this->json('post', "/api/auth/register", $this->data)->assertSuccessful();
+        $this->assertTrue(Hash::check($this->data['password'], User::first()->password));
+    }
+
+    public function testRegisterValidations()
+    {
+        $this->json('post', "/api/auth/register")->assertJsonValidationErrors([
+            'email', 'name', 'surname', 'password'
+        ]);
+
+
+        $this->json('post', "/api/auth/register", collect($this->data)->except('password_confirmation')->toArray())
+            ->assertJsonValidationErrors(['password']);
+
+
+        $this->json('post', "/api/auth/register", $this->data)->assertSuccessful();
+        $this->json('post', "/api/auth/register", $this->data)->assertJsonValidationErrors(['email']);
     }
 }
