@@ -11,4 +11,4 @@
 |
 */
 
-//Route::view('/{any}', 'home')->where('any', '.*');
+Route::view('/{any}', 'home')->where('any', '.*');

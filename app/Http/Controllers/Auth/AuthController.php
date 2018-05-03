@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\User;
+use App\UserType;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     public function login()
@@ -41,5 +45,18 @@ class AuthController extends Controller
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        $data = $request->only(['name', 'email', 'surname', 'role']);
+        $user = User::make($data);
+        $user->role = UserType::DOCTOR;
+        $user->password = Hash::make($request->password);
+
+        if (!$user->save()) {
+            return response()->json("User cannot be saved", 500);
+        }
+        return $this->respondWithToken(auth()->login($user->refresh()));
     }
 }
