@@ -7,16 +7,16 @@ export default {
             switch (role) {
                 case 'DONOR':
                     state.links = [
-                        {path: 'donate', name: 'Register for a donation'},
-                        {path: 'history', name: 'Past donations'},
-                        {path: 'schedule', name: 'Future donation'}
+                        {path: '/donate', name: 'Register for a donation'},
+                        {path: '/history', name: 'Past donations'},
+                        {path: '/schedule', name: 'Future donation'}
                     ];
                     return;
                 case 'DOCTOR':
                     state.links = [
-                        {path: 'request', name: 'Request blood'},
-                        {path: 'requests', name: 'See ongoing requests'},
-                        {path: 'requests/past', name: 'Past requests'}
+                        {path: '/request', name: 'Request blood'},
+                        {path: '/requests', name: 'See ongoing requests'},
+                        {path: '/requests/past', name: 'Past requests'}
                     ];
                     return;
                 case 'ASSISTANT':

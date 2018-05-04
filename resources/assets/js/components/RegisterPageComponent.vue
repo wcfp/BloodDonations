@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="email" class="sr-only">Email</label>
-                    <input id="email" class="form-control col" type="text" v-model="email" placeholder="Email">
+                    <input id="email" class="form-control col" type="email" v-model="email" placeholder="Email">
                 </div>
                 <div class="form-group">
                     <label for="name" class="sr-only">Name</label>
@@ -16,11 +16,11 @@
                 </div>
                 <div class="form-group">
                     <label for="password" class="sr-only">Password</label>
-                    <input id="password" class="form-control col" type="text" v-model="password" placeholder="Password">
+                    <input id="password" class="form-control col" type="password" v-model="password" placeholder="Password">
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation" class="sr-only">Password</label>
-                    <input id="password_confirmation" class="form-control col" type="text" v-model="passwordConfirmation" placeholder="Confirm password">
+                    <input id="password_confirmation" class="form-control col" type="password" v-model="passwordConfirmation" placeholder="Confirm password">
                 </div>
                 <button class="btn btn-primary btn-block" @click="register()">Register!</button>
             </div>

@@ -34,6 +34,7 @@ export default {
         userinfo(context) {
             return axios.get('/api/auth/me').then((response) => {
                 context.commit('userinfo', response.data.name, response.data.surname, response.data.role);
+                context.commit('setLinksFor', response.data.role);
                 return true;
             }).catch((reason) => {
                 console.log(reason.response);

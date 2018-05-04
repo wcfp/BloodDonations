@@ -51340,6 +51340,7 @@ var index_esm = {
         userinfo: function userinfo(context) {
             return axios.get('/api/auth/me').then(function (response) {
                 context.commit('userinfo', response.data.name, response.data.surname, response.data.role);
+                context.commit('setLinksFor', response.data.role);
                 return true;
             }).catch(function (reason) {
                 console.log(reason.response);
@@ -58478,7 +58479,7 @@ var render = function() {
                 "router-link",
                 {
                   staticClass: "nav-link btn btn-link",
-                  attrs: { to: "profile", tag: "button" }
+                  attrs: { to: "/profile", tag: "button" }
                 },
                 [
                   _c("fa-icon", { attrs: { icon: "user-circle" } }),
@@ -58490,7 +58491,7 @@ var render = function() {
                 "router-link",
                 {
                   staticClass: "nav-link btn btn-link",
-                  attrs: { to: "login", tag: "button" }
+                  attrs: { to: "/login", tag: "button" }
                 },
                 [_vm._v("Login")]
               )
@@ -58519,7 +58520,7 @@ var render = function() {
                 "router-link",
                 {
                   staticClass: "nav-link btn btn-link",
-                  attrs: { to: "register", tag: "button" }
+                  attrs: { to: "/register", tag: "button" }
                 },
                 [_vm._v("Register!")]
               )
@@ -58700,7 +58701,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control col",
-            attrs: { id: "email", type: "text", placeholder: "Email" },
+            attrs: { id: "email", type: "email", placeholder: "Email" },
             domProps: { value: _vm.email },
             on: {
               input: function($event) {
@@ -58728,7 +58729,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control col",
-            attrs: { id: "password", type: "text", placeholder: "Password" },
+            attrs: {
+              id: "password",
+              type: "password",
+              placeholder: "Password"
+            },
             domProps: { value: _vm.password },
             on: {
               input: function($event) {
@@ -59103,7 +59108,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control col",
-            attrs: { id: "email", type: "text", placeholder: "Email" },
+            attrs: { id: "email", type: "email", placeholder: "Email" },
             domProps: { value: _vm.email },
             on: {
               input: function($event) {
@@ -59187,7 +59192,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control col",
-            attrs: { id: "password", type: "text", placeholder: "Password" },
+            attrs: {
+              id: "password",
+              type: "password",
+              placeholder: "Password"
+            },
             domProps: { value: _vm.password },
             on: {
               input: function($event) {
@@ -59219,7 +59228,7 @@ var render = function() {
             staticClass: "form-control col",
             attrs: {
               id: "password_confirmation",
-              type: "text",
+              type: "password",
               placeholder: "Confirm password"
             },
             domProps: { value: _vm.passwordConfirmation },
@@ -59430,10 +59439,10 @@ if (false) {
         setLinksFor: function setLinksFor(state, role) {
             switch (role) {
                 case 'DONOR':
-                    state.links = [{ path: 'donate', name: 'Register for a donation' }, { path: 'history', name: 'Past donations' }, { path: 'schedule', name: 'Future donation' }];
+                    state.links = [{ path: '/donate', name: 'Register for a donation' }, { path: '/history', name: 'Past donations' }, { path: '/schedule', name: 'Future donation' }];
                     return;
                 case 'DOCTOR':
-                    state.links = [{ path: 'request', name: 'Request blood' }, { path: 'requests', name: 'See ongoing requests' }, { path: 'requests/past', name: 'Past requests' }];
+                    state.links = [{ path: '/request', name: 'Request blood' }, { path: '/requests', name: 'See ongoing requests' }, { path: '/requests/past', name: 'Past requests' }];
                     return;
                 case 'ASSISTANT':
                     state.links = [
