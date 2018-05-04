@@ -44,6 +44,7 @@ export default {
         logout(context) {
             return axios.post('/api/auth/logout').then(() => {
                 context.commit('logout');
+                context.commit('resetLinks');
                 return true;
             }).catch((reason) => {
                 console.log(reason.response);

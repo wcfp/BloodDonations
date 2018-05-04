@@ -51350,6 +51350,7 @@ var index_esm = {
         logout: function logout(context) {
             return axios.post('/api/auth/logout').then(function () {
                 context.commit('logout');
+                context.commit('resetLinks');
                 return true;
             }).catch(function (reason) {
                 console.log(reason.response);
@@ -59455,6 +59456,9 @@ if (false) {
                     ];
                     return;
             }
+        },
+        resetLinks: function resetLinks(state) {
+            state.links = [];
         }
     },
     getters: {

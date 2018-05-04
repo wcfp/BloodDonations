@@ -31,6 +31,9 @@ export default {
                     return;
             }
         },
+        resetLinks(state) {
+            state.links = [];
+        }
     },
     getters: {
         links: (state) => state.links,
