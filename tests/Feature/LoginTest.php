@@ -25,7 +25,7 @@ class LoginTest extends TestCase
     public function testMeReturnsUser()
     {
         $token = $this->json('post', '/api/auth/login', ['email' => $this->user->email, 'password' => 'password'])->json('access_token');
-        $this->json('post', '/api/auth/me', [], ['Authorization' => "Bearer ${token}"])
+        $this->json('get', '/api/auth/me', [], ['Authorization' => "Bearer ${token}"])
             ->assertSuccessful()
             ->assertJson($this->user->toArray());
 

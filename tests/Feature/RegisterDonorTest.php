@@ -24,8 +24,7 @@ class RegisterDonorTest extends TestCase
     {
         $this->assertFalse(User::whereRole(UserType::DOCTOR)->exists());
         $this->json('post', "/api/auth/register", $this->data)
-            ->assertSuccessful()
-            ->assertJson(['message' => 'User created']);
+            ->assertSuccessful();
 
         $user = User::first();
         $this->assertNotNull($user);
@@ -53,6 +52,12 @@ class RegisterDonorTest extends TestCase
 
 
         $this->json('post', "/api/auth/register", $this->data)->assertSuccessful();
+        auth()->logout();
         $this->json('post', "/api/auth/register", $this->data)->assertJsonValidationErrors(['email']);
+    }
+
+    public function testLoggedInAfterRegister()
+    {
+        $this->json('post', '/api/auth/register', $this->data)->assertJsonStructure(['access_token', 'token_type', 'expires_in']);
     }
 }
