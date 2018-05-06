@@ -8,8 +8,7 @@ export default {
                 case 'DONOR':
                     state.links = [
                         {path: '/donate', name: 'Register for a donation'},
-                        {path: '/history', name: 'Past donations'},
-                        {path: '/schedule', name: 'Future donation'}
+                        {path: '/history', name: 'My history'}
                     ];
                     return;
                 case 'DOCTOR':
