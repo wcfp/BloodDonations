@@ -40,3 +40,47 @@ RequestPageComponent->Doctor: display(Request entity)
 
 
 
+
+
+title Medical Staff: Blood journey
+
+Staff->HomePageComponent:
+note over HomePageComponent: User clicks on 'FillForm' tab
+HomePageComponent->FillFormComponent:redirectTo()
+
+note over FillFormComponent
+User fills the form
+Preregistered donation?
+end note
+
+FillFormComponent->DonationController: update(DonationId)
+
+note over FillFormComponent
+No preregistration?
+end note over
+FillFormComponent->DonationController: create()
+
+
+DonationController->DonationController: Sampling
+note over DonationController: Blood not qualified?
+DonationController->DonationModel: changeStatus(DonationId)
+
+
+DonationController->DonationController: Blood Preparation
+DonationController->DonationModel: changeStatus(DonationId)
+
+
+DonationController->DonationController: Test Biological Quality
+note over DonationController: Blood not qualified?
+DonationController->DonationModel: changeStatus(DonationId)
+
+
+DonationController->DonationController: Redistribution
+DonationController->DonationModel: changeStatus(DonationId)
+
+note over DonationController: Update Donor data with results
+DonationController->DonorModel: update(DonorId)
+
+
+
+
