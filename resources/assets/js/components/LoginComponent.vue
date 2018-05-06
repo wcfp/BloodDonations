@@ -10,7 +10,7 @@
                     <label for="password" class="sr-only">Password</label>
                     <input id="password" class="form-control col" type="password" v-model="password" placeholder="Password">
                 </div>
-                <button class="btn btn-primary btn-block" @click="login()">Login!</button>
+                <button class="btn btn-primary btn-block" @click="login()">Login</button>
             </div>
         </div>
     </div>

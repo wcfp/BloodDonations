@@ -8,8 +8,8 @@
                 <router-link v-else to="/login" class="nav-link btn btn-link" tag="button">Login</router-link>
             </li>
             <li class="nav-item">
-                <button v-if="loggedIn" @click="logout()" class="btn nav-link btn-link">Logout!</button>
-                <router-link v-else to="/register" class="nav-link btn btn-link" tag="button">Register!</router-link>
+                <button v-if="loggedIn" @click="logout()" class="btn nav-link btn-link">Logout</button>
+                <router-link v-else to="/register" class="nav-link btn btn-link" tag="button">Register</router-link>
             </li>
         </ul>
     </div>

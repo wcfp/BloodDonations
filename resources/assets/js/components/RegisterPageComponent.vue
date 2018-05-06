@@ -22,7 +22,7 @@
                     <label for="password_confirmation" class="sr-only">Password</label>
                     <input id="password_confirmation" class="form-control col" type="password" v-model="passwordConfirmation" placeholder="Confirm password">
                 </div>
-                <button class="btn btn-primary btn-block" @click="register()">Register!</button>
+                <button class="btn btn-primary btn-block" @click="register()">Register</button>
             </div>
         </div>
     </div>
