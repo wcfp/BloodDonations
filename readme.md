@@ -23,15 +23,17 @@ How to setup:
  - create new database blooddonation
  - create new user blooddonation_root with the same password
  - select all checkboxes
- - open .env file in php storm
- - make sure those fields are as follows:
+ - copy .env.example to .env
+ - open .env file and make sure those fields are as follows:
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
     DB_DATABASE=blooddonations
     DB_USERNAME=blooddonations_root
     DB_PASSWORD=blooddonations_root
- - run php artisan migrate in the terminal
+ - run php artisan key:generate in the terminal
+ - run php artisan jwt:secret
+ - run php artisan migrate
  - run php artisan db:seed
  - run composer install again
  - to be continued
