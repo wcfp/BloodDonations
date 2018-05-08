@@ -6,3 +6,5 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('me', 'Auth\AuthController@me');
     Route::post('register', 'Auth\AuthController@register');
 });
+
+Route::post('appointment', 'DonationController@createAppointment');
