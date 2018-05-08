@@ -1,0 +1,86 @@
+title Donor Business Case : Request appointment
+
+RequestDonationPageComponent->DonationController: Sends appointment date
+note right of DonationController: Validates data.Invalid data?
+DonationController->RequestDonationPageComponent : Error message
+note right of DonationController: Validates data.Valid data?
+DonationController->DonationModel: Sends data
+
+
+
+
+
+title Donor Business Case : View History Records
+
+User->HomePageComponent: Clicks on 'History' tab
+HomePageComponent->HistoryPageComponent:redirectTo()
+
+note over HistoryPageComponent: User clicks a specific donation
+HistoryPageComponent->DonationController: get(DonationId)
+
+DonationController->DonationModel: select(DonationId)
+DonationModel->DonationController: Donation entity
+DonationController->HistoryPageComponent:Donation entity
+HistoryPageComponent->User: display(Donation entity)
+
+
+
+title Doctor Business Case : View Requests Records
+
+Doctor->HomePageComponent: Clicks on 'Requests' tab
+HomePageComponent->RequestPageComponent:redirectTo()
+
+note over RequestPageComponent: User clicks a specific request
+RequestPageComponent->RequestController: get(RequestId)
+
+RequestController->RequestModel: select(RequestId)
+RequestModel->RequestController: Request entity
+RequestController->RequestPageComponent:Request entity
+RequestPageComponent->Doctor: display(Request entity)
+
+
+
+
+
+title Medical Staff: Blood journey
+
+Staff->HomePageComponent:
+note over HomePageComponent: User clicks on 'FillForm' tab
+HomePageComponent->FillFormComponent:redirectTo()
+
+note over FillFormComponent
+User fills the form
+Preregistered donation?
+end note
+
+FillFormComponent->DonationController: update(DonationId)
+
+note over FillFormComponent
+No preregistration?
+end note over
+FillFormComponent->DonationController: create()
+
+
+DonationController->DonationController: Sampling
+note over DonationController: Blood not qualified?
+DonationController->DonationModel: changeStatus(DonationId)
+
+
+DonationController->DonationController: Blood Preparation
+DonationController->DonationModel: changeStatus(DonationId)
+
+
+DonationController->DonationController: Test Biological Quality
+note over DonationController: Blood not qualified?
+DonationController->DonationModel: changeStatus(DonationId)
+
+
+DonationController->DonationController: Redistribution
+DonationController->DonationModel: changeStatus(DonationId)
+
+note over DonationController: Update Donor data with results
+DonationController->DonorModel: update(DonorId)
+
+
+
+
