@@ -7,4 +7,5 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'Auth\AuthController@register');
 });
 
-Route::post('appointment', 'DonationController@createAppointment');
+Route::post('appointments', 'DonationController@createAppointment');
+Route::get('appointments', 'DonationController@returnHistory');
