@@ -17,9 +17,12 @@ class CreateDonorsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('current_address_id')->unsigned();
-            $table->integer('residence_address_id')->unsigned();
-            $table->enum('blood_type', ['0', 'A', 'B', 'AB']);
-            $table->enum('rh', ['+', '-']);
+            $table->integer('residence_address_id')->unsigned()->nullable();
+            $table->enum('blood_type', ['0', 'A', 'B', 'AB'])->nullable();
+            $table->enum('rh', ['+', '-'])->nullable();
+            $table->string('phone_number');
+            $table->integer('weight');
+            $table->date('birth_date');
             $table->boolean('is_allowed')->default(true);
             $table->timestamps();
 

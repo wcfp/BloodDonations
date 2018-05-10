@@ -8,3 +8,4 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::post('appointment', 'DonationController@createAppointment');
+Route::post('profile', 'DonorController@store');
