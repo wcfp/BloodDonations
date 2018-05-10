@@ -16,8 +16,8 @@ class CreateDonorsTable extends Migration
         Schema::create('donors', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('current_address_id')->unsigned();
-            $table->integer('residence_address_id')->unsigned()->nullable();
+            $table->integer('residence_address_id')->unsigned();
+            $table->integer('current_address_id')->unsigned()->nullable();
             $table->enum('blood_type', ['0', 'A', 'B', 'AB'])->nullable();
             $table->enum('rh', ['+', '-'])->nullable();
             $table->string('phone_number');

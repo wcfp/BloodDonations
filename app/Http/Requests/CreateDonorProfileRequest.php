@@ -30,14 +30,14 @@ class CreateDonorProfileRequest extends FormRequest
             'phone_number' => 'required|regex:\d+',
             'weight' => 'required|number',
             'birth_date' => 'required|date',
-            'current_country' => 'required|string',
-            'current_city' => 'required|string',
-            'current_street' => 'required|string',
-            'current_number' => 'required|number',
-            'residence_country' => 'required_with:residence_address|string',
-            'residence_number' => 'required_with:residence_address|number',
-            'residence_city' => 'required_with:residence_address|string',
-            'residence_street' => 'required_with:residence_address|string',
+            'residence_country' => 'required|string',
+            'residence_city' => 'required|string',
+            'residence_street' => 'required|string',
+            'residence_number' => 'required|number',
+            'current_country' => 'required_with:current_address|string',
+            'current_number' => 'required_with:current_address|number',
+            'current_city' => 'required_with:current_address|string',
+            'current_street' => 'required_with:current_address|string',
         ];
     }
 }
