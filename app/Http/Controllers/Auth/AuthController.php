@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Donor;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\User;
@@ -57,6 +58,10 @@ class AuthController extends Controller
         if (!$user->save()) {
             return response()->json("User cannot be saved", 500);
         }
-        return $this->respondWithToken(auth()->login($user->refresh()));
+
+        $user = $user->refresh();
+        factory(Donor::class)->create(['user_id' => $user->id]);
+
+        return $this->respondWithToken(auth()->login($user));
     }
 }
