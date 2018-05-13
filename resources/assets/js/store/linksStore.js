@@ -26,7 +26,7 @@ export default {
                     return;
                 case 'ADMIN':
                     state.links = [
-                        //TODO
+                        {path: '/invite', name: 'Invite'},
                     ];
                     return;
             }

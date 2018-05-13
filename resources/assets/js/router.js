@@ -4,6 +4,7 @@ import LoginComponent from "./components/LoginComponent"
 import RegisterPageComponent from "./components/RegisterPageComponent"
 import ProfilePageComponent from "./components/ProfilePageComponent"
 import DonationHistoryPageComponent from './components/DonationHistoryPageComponent'
+import InvitationPageComponent from './components/InvitationPageComponent';
 
 import VueRouter from "vue-router"
 import Vue from "vue"
@@ -18,6 +19,7 @@ export default new VueRouter({
         {path: '/history', component: DonationHistoryPageComponent},
         {path: '/register', component: RegisterPageComponent},
         {path: '/profile', component: ProfilePageComponent},
+        {path: '/invite', component: InvitationPageComponent},
     ],
     mode: 'history',
 });
