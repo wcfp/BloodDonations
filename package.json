@@ -26,6 +26,7 @@
         "@fortawesome/fontawesome-free-regular": "^5.0.10",
         "@fortawesome/fontawesome-free-solid": "^5.0.10",
         "@fortawesome/vue-fontawesome": "0.0.22",
+        "npm": "^6.0.1",
         "vuejs-datepicker": "^1.1.4"
     }
 }

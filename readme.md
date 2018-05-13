@@ -8,6 +8,7 @@ Lorena Sabou
 
 George Sava
 
+Ingrid Sas
 
 How to setup:
  - install XAMPP
