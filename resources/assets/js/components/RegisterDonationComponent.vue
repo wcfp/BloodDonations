@@ -11,7 +11,7 @@
 
         methods: {
             createAppointment() {
-                this.$store.dispatch('createAppointment', {date: '2018-05-09 09:20:00'})
+                this.$store.dispatch('createAppointment', {date: '2018-05-20 09:20:00'})
                     .then(response => this.$router.push('/history'));
             }
         }

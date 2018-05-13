@@ -1,6 +1,6 @@
 <template>
     <div>
-        homepage, fuck yeah
+        homepage, .... yeah
     </div>
 </template>
 

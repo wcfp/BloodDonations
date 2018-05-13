@@ -49,7 +49,7 @@
                     surname: this.surname,
                     password: this.password,
                     password_confirmation: this.passwordConfirmation
-                }).then(() => this.$router.push('/'));
+                }).then(() => this.$router.push('/profile'));
             }
         }
 

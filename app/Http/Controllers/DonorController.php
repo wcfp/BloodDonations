@@ -2,84 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Address;
 use App\Donor;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateDonorProfileRequest;
+use App\UserType;
 
 class DonorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function store(CreateDonorProfileRequest $request)
     {
-        //
+        $residence_address = Address::create([
+            'country' => $request->residence_country,
+            'city' => $request->residence_city,
+            'street' => $request->residence_street,
+            'number' => $request->residence_number,
+        ]);
+
+        if ($request->has($request->current_address)) {
+            $current_address = Address::create([
+                'country' => $request->current_country,
+                'city' => $request->current_city,
+                'street' => $request->current_street,
+                'number' => $request->current_number,
+            ]);
+        }
+
+
+        Donor::create([
+            'blood_type' => $request->blood_type,
+            'rh' => $request->rh,
+            'phone_number' => $request->phone_number,
+            'weight' => $request->weight,
+            'birth_date' => $request->birth_date,
+            'user_id' => auth()->id(),
+            'current_address' => $residence_address->id,
+            'residence_address' => isset($current_address) ? $current_address->id : null
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(CreateDonorProfileRequest $request, Donor $donor)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Donor  $donor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Donor $donor)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Donor  $donor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Donor $donor)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Donor  $donor
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Donor $donor)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Donor  $donor
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Donor $donor)
-    {
-        //
+//        $is_allowed = auth()->user()->role == UserType::ASSISTANT ?
     }
 }
