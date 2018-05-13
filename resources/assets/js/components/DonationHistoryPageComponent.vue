@@ -1,16 +1,21 @@
 <template>
     <div>
-        <h2>Please choose the date for your next appointment: </h2>
-        <date-picker></date-picker>
+
+        <div v-for="donation in donations">
+            {donation.appointment_date}
+        </div>
+
     </div>
 
 </template>
 
 <script>
     export default {
-        methods: {
-
-        }
+        computed: {
+            donations() {
+                return this.$store.getters.donations;
+            }
+        },
     }
 </script>
 
