@@ -43,5 +43,19 @@ class DonationController extends Controller
         return response()->json();
     }
 
+    public function returnHistory(Request $request)
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+
+        if (auth()->user()->role != UserType::DONOR) {
+            return response("", 403);
+        }
+
+        return Donor::where('user_id', auth()->id())->firstOrFail()->donations;
+    }
+
 
 }

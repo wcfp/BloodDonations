@@ -10,6 +10,9 @@ $factory->define(App\Donor::class, function (Faker $faker) {
         'current_address_id' => $faker->numberBetween(1, App\Address::count()),
         'residence_address_id' => $faker->numberBetween(1, App\Address::count()),
         'blood_type' => $faker->randomElement(['0', 'A', 'B', 'AB']),
-        'rh' => $faker->randomElement(['+', '-'])
+        'rh' => $faker->randomElement(['+', '-']),
+        'weight' => $faker->numberBetween(50, 100),
+        'birth_date' => $faker->dateTimeBetween(),
+        'phone_number' => $faker->phoneNumber,
     ];
 });

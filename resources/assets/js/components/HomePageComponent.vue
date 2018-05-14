@@ -31,8 +31,6 @@
         <i class="fas fa-info-circle fa-2x blue"></i>	The morning before blood donation you may drink a cup of tea or coffee, and eat a light breakfast of fruits and vegetables<br>
         <i class="fas fa-info-circle fa-2x blue"></i>	Do not smoke and hour before and after blood donation<br>
         <i class="fas fa-info-circle fa-2x blue"></i>	Arrive well slept, and not after a night of working or staying up<br>
-
-
     </div>
 </template>
 
