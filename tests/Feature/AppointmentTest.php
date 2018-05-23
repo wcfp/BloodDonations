@@ -101,5 +101,15 @@ class AppointmentTest extends TestCase
             ->assertSuccessful()->assertJsonCount(10);
     }
 
+    public function testGetBloodRequestSuccessful()
+    {
+        $this->actingAs(factory(User::class)->create(['role' => UserType::ASSISTANT]));
+
+        $bloodRequest = factory(BloodRequest::class)->create();
+        $this
+            ->json('get', '/api/blood/requests/' . $bloodRequest->id)
+            ->assertSuccessful()->assertJson($bloodRequest->toArray());
+    }
+
 
 }
