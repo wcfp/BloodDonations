@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BloodRequest;
 use App\Donation;
 use App\DonationStatus;
 use App\Donor;

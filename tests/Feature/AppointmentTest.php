@@ -9,6 +9,7 @@
 namespace Tests\Feature;
 
 
+use App\BloodRequest;
 use App\Donation;
 use App\Donor;
 use App\User;
@@ -87,6 +88,16 @@ class AppointmentTest extends TestCase
         factory(Donation::class, 1)->create(['status' => 'random']);
         $this
             ->json('get', '/api/appointments')
+            ->assertSuccessful()->assertJsonCount(10);
+    }
+
+    public function testGetBloodRequestsSuccessful()
+    {
+        $this->actingAs(factory(User::class)->create(['role' => UserType::ASSISTANT]));
+
+        factory(BloodRequest::class, 10)->create();
+        $this
+            ->json('get', '/api/blood/requests')
             ->assertSuccessful()->assertJsonCount(10);
     }
 
