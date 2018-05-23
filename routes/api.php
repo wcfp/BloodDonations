@@ -13,3 +13,4 @@ Route::post('profile', 'DonorController@store');
 
 Route::post('blood/request','BloodRequestController@createBloodRequest');
 Route::get('appointments', 'DonationController@getAllAppointments');
+Route::get('blood/requests', 'BloodRequestController@getAllBloodRequests');

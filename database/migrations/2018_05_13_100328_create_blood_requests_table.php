@@ -23,6 +23,8 @@ class CreateBloodRequestsTable extends Migration
             $table->string('blood_type')->nullable();
             $table->string('rh')->nullable();
             $table->string('urgency_level');
+            $table->string('status');
+            $table->dateTime('status_date');
 
             $table->foreign('address_id')->references('id')->on('addresses');
             $table->foreign('doctor_id')->references('id')->on('users');
