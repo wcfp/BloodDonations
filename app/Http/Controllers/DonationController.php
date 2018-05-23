@@ -57,5 +57,18 @@ class DonationController extends Controller
         return Donor::where('user_id', auth()->id())->firstOrFail()->donations;
     }
 
+    public function getAllAppointments(Request $request)
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
+
+        return Donation::where("status", DonationStatus::REQUESTED)->get();
+    }
+
 
 }
