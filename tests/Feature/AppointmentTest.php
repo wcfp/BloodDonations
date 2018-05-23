@@ -69,4 +69,26 @@ class AppointmentTest extends TestCase
             ->json('post', '/api/appointments', ['date' => Carbon::tomorrow()->toDateTimeString()])
             ->assertStatus(403);
     }
+
+    public function testGetAppointmentNotAllowedForNonAssistants()
+    {
+        $this->actingAs(factory(User::class)->create(['role' => UserType::DONOR]));
+
+        $this
+            ->json('get', '/api/appointments')
+            ->assertStatus(403);
+    }
+
+    public function testGetAppointmentSuccessful()
+    {
+        $this->actingAs(factory(User::class)->create(['role' => UserType::ASSISTANT]));
+
+        factory(Donation::class, 10)->create();
+        factory(Donation::class, 1)->create(['status' => 'random']);
+        $this
+            ->json('get', '/api/appointments')
+            ->assertSuccessful()->assertJsonCount(10);
+    }
+
+
 }

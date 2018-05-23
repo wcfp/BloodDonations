@@ -7,8 +7,12 @@ $factory->define(App\Donor::class, function (Faker $faker) {
         'user_id' => function () {
             return factory(App\User::class)->create(['role' => 'DONOR'])->id;
         },
-        'current_address_id' => $faker->numberBetween(1, App\Address::count()),
-        'residence_address_id' => $faker->numberBetween(1, App\Address::count()),
+        'current_address_id' => function () {
+            return factory(App\Address::class)->create()->id;
+        },
+        'residence_address_id' => function () {
+            return factory(App\Address::class)->create()->id;
+        },
         'blood_type' => $faker->randomElement(['0', 'A', 'B', 'AB']),
         'rh' => $faker->randomElement(['+', '-']),
         'weight' => $faker->numberBetween(50, 100),
