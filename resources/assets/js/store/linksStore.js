@@ -9,6 +9,7 @@ export default {
                     state.links = [
                         {path: '/donate', name: 'Register for a donation'},
                         {path: '/history', name: 'My history'},
+                        {path: '/editP', name:'Edit profile'}
                         // {path: '/registerInfo',name: 'Register info'}
                     ];
                     return;

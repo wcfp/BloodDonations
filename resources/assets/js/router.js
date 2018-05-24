@@ -6,6 +6,7 @@ import DonorProfilePageComponent from "./components/DonorProfilePageComponent"
 import DonationHistoryPageComponent from './components/DonationHistoryPageComponent'
 import InvitationPageComponent from './components/InvitationPageComponent'
 import InvitationRegisterComponent from './components/InvitationRegisterComponent';
+import EditProfileComponent from './components/EditProfileComponent'
 
 import VueRouter from "vue-router"
 import Vue from "vue"
@@ -22,6 +23,7 @@ export default new VueRouter({
         {path: '/profile', component: DonorProfilePageComponent},
         {path: '/invite', component: InvitationPageComponent},
         {path: '/invitation', component: InvitationRegisterComponent},
+        {path: '/editP', component: EditProfileComponent}
     ],
     mode: 'history',
 });
