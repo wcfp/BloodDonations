@@ -16,14 +16,18 @@ class CreateBloodRequestsTable extends Migration
         Schema::create('blood_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('address_id')->unsigned();
+            $table->integer('doctor_id')->unsigned();
             $table->integer('thrombocyte_quantity')->nullable();
             $table->integer('plasma_quantity')->nullable();
             $table->integer('red_blood_cells_quantity')->nullable(); //only if we have request of red blood cells we need blood_type and rh
             $table->string('blood_type')->nullable();
             $table->string('rh')->nullable();
             $table->string('urgency_level');
+            $table->string('status');
+            $table->dateTime('status_date');
 
             $table->foreign('address_id')->references('id')->on('addresses');
+            $table->foreign('doctor_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

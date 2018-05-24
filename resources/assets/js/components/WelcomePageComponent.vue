@@ -18,7 +18,7 @@
     header.masthead {
         padding-top: 10rem;
         padding-bottom: calc(10rem - 56px);
-        background: url("landingPage.jpg") center center;
+        background: url("/images/landingPage.jpg") center center;
         background-size: cover;
     }
 

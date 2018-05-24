@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Donor extends Model
 {
 
+    protected $fillable = [
+        'blood_type',
+        'rh',
+        'phone_number',
+        'weight',
+        'birth_date',
+        'user_id',
+        'current_address_id',
+        'residence_address_id',
+    ];
+
     public function donations()
     {
         return $this->hasMany(Donation::class);

@@ -9,6 +9,10 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::post('appointments', 'DonationController@createAppointment');
 Route::get('appointments', 'DonationController@returnHistory');
-Route::post('profile', 'DonorController@store');
+Route::post('donor/profile', 'DonorController@store');
 
 Route::post('blood/request','BloodRequestController@createBloodRequest');
+Route::get('appointments', 'DonationController@getAllAppointments');
+Route::get('blood/requests', 'BloodRequestController@getAllBloodRequests');
+Route::get('blood/requests/{bloodRequest}', 'BloodRequestController@getBloodRequest');
+Route::patch('blood/requests/{bloodRequest}/status', 'BloodRequestController@changeBloodRequestStatus');
