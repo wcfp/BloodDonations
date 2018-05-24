@@ -57,4 +57,17 @@ class BloodRequestController extends Controller
 
         return BloodRequest::all();
     }
+
+    public function getBloodRequest(BloodRequest $bloodRequest)
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
+
+        return $bloodRequest;
+    }
 }
