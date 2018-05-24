@@ -20,13 +20,13 @@
         data()
         {
             return {
-            date: new Date()
+            date: ""
         }},
 
         methods: {
             createAppointment() {
                 console.log(this.date);
-                this.$store.dispatch('createAppointment', {date: this.date})
+                this.$store.dispatch('createAppointment', {date: this.date.format('Y-m-d H:i:s')})
                     .then(response => this.$router.push('/'));
             }
         }}
