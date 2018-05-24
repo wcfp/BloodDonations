@@ -6,7 +6,7 @@ import ProfilePageComponent from "./components/ProfilePageComponent"
 import DonationHistoryPageComponent from './components/DonationHistoryPageComponent'
 import InvitationPageComponent from './components/InvitationPageComponent'
 import InvitationRegisterComponent from './components/InvitationRegisterComponent';
-
+import DoctorBloodRequestPageComponent from './components/DoctorBloodRequestPageComponent'
 import VueRouter from "vue-router"
 import Vue from "vue"
 
@@ -22,6 +22,7 @@ export default new VueRouter({
         {path: '/profile', component: ProfilePageComponent},
         {path: '/invite', component: InvitationPageComponent},
         {path: '/invitation', component: InvitationRegisterComponent},
+        {path: '/request', component: DoctorBloodRequestPageComponent},
     ],
     mode: 'history',
 });
