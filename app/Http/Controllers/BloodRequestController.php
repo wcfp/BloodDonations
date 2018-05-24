@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use App\BloodRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\BloodFormRequest;
 use App\UserType;
 
@@ -69,5 +70,21 @@ class BloodRequestController extends Controller
         }
 
         return $bloodRequest;
+    }
+
+    public function changeBloodRequestStatus(BloodRequest $bloodRequest, Request $request)
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
+
+        //TODO add the status from BloodRequestStatus
+        $bloodRequest->status = $request->status;
+        $bloodRequest->save();
+        return response()->json();
     }
 }

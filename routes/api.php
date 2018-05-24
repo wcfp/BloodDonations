@@ -15,3 +15,4 @@ Route::post('blood/request','BloodRequestController@createBloodRequest');
 Route::get('appointments', 'DonationController@getAllAppointments');
 Route::get('blood/requests', 'BloodRequestController@getAllBloodRequests');
 Route::get('blood/requests/{bloodRequest}', 'BloodRequestController@getBloodRequest');
+Route::patch('blood/requests/{bloodRequest}/status', 'BloodRequestController@changeBloodRequestStatus');

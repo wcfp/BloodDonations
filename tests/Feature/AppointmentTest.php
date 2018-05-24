@@ -10,6 +10,7 @@ namespace Tests\Feature;
 
 
 use App\BloodRequest;
+use APP\Http\Controllers;
 use App\Donation;
 use App\Donor;
 use App\User;
@@ -111,5 +112,30 @@ class AppointmentTest extends TestCase
             ->assertSuccessful()->assertJson($bloodRequest->toArray());
     }
 
+    public function testChangeBloodRequestStatusSuccessful()
+    {
+        $this->actingAs(factory(User::class)->create(['role' => UserType::ASSISTANT]));
+
+        $bloodRequest = factory(BloodRequest::class)->create();
+
+        $this
+            ->json('patch', '/api/blood/requests/' . $bloodRequest->id. '/status', ['status' => 'accepted'])
+            ->assertSuccessful();
+
+        $this->assertEquals(BloodRequest::find($bloodRequest->id)->status, 'accepted');
+    }
+
+    public function testChangeBloodRequestStatusFails()
+    {
+        $this->actingAs(factory(User::class)->create(['role' => UserType::ASSISTANT]));
+
+        $bloodRequest = factory(BloodRequest::class)->create();
+
+        $this
+            ->json('patch', '/api/blood/requests/' . $bloodRequest->id . '/status', ['status' => 'accepted'])
+            ->assertSuccessful();
+
+        $this->assertNotEquals(BloodRequest::find($bloodRequest->id)->status, 'requested');
+    }
 
 }
