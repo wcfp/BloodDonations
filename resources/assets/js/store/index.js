@@ -2,17 +2,17 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import userModule from './userStore'
 import linksStore from "./linksStore";
-import donorStore from "./donationStore";
+import donationStore from "./donationStore";
+import donorStore from "./donorStore";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
         user: userModule,
-        links: linksStore, donorStore
-
-
-
+        links: linksStore,
+        donation: donationStore,
+        donor: donorStore
     }
 });
 

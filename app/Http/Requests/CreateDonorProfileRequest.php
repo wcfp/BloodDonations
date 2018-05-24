@@ -27,17 +27,17 @@ class CreateDonorProfileRequest extends FormRequest
         return [
             'blood_type' => 'in:A,B,AB,0',
             'rh' => 'in:+,-',
-            'phone_number' => 'required|regex:\d+',
-            'weight' => 'required|number',
+            'phone_number' => ['required', 'regex:/\d+/'],
+            'weight' => 'required|numeric',
             'birth_date' => 'required|date',
-            'residence_country' => 'required|string',
-            'residence_city' => 'required|string',
-            'residence_street' => 'required|string',
-            'residence_number' => 'required|number',
-            'current_country' => 'required_with:current_address|string',
-            'current_number' => 'required_with:current_address|number',
-            'current_city' => 'required_with:current_address|string',
-            'current_street' => 'required_with:current_address|string',
+            'current_country' => 'required|string',
+            'current_city' => 'required|string',
+            'current_street' => 'required|string',
+            'current_number' => 'required|string',
+            'residence_country' => 'required_if:residence_address,true|string|nullable',
+            'residence_number' => 'required_if:residence_address,true|string|nullable',
+            'residence_city' => 'required_if:residence_address,true|string|nullable',
+            'residence_street' => 'required_if:residence_address,true|string|nullable',
         ];
     }
 }
