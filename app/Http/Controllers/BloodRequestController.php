@@ -87,4 +87,18 @@ class BloodRequestController extends Controller
         $bloodRequest->save();
         return response()->json();
     }
+
+    public function returnHistory(Request $request)
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+
+        if (auth()->user()->role != UserType::DOCTOR) {
+            return response("", 403);
+        }
+
+        return BloodRequest::where("status", BloodRequestStatus::REQUESTED)->get();
+    }
 }

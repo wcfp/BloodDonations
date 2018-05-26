@@ -22,7 +22,9 @@ export default {
                     return;
                 case 'ASSISTANT':
                     state.links = [
-                        //TODO
+                        {path: '/requests/all', name: 'All blood requests'},
+                        {path: '/donations/all', name: 'All donations'},
+
                     ];
                     return;
                 case 'ADMIN':

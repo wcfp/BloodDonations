@@ -77,7 +77,7 @@ class AppointmentTest extends TestCase
         $this->actingAs(factory(User::class)->create(['role' => UserType::DONOR]));
 
         $this
-            ->json('get', '/api/appointments')
+            ->json('get', '/api/assistant/appointments')
             ->assertStatus(403);
     }
 
@@ -88,7 +88,7 @@ class AppointmentTest extends TestCase
         factory(Donation::class, 10)->create();
         factory(Donation::class, 1)->create(['status' => 'random']);
         $this
-            ->json('get', '/api/appointments')
+            ->json('get', '/api/assistant/appointments')
             ->assertSuccessful()->assertJsonCount(10);
     }
 
