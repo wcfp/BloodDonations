@@ -9,7 +9,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 //donor routes
 Route::post('donor/profile', 'DonorController@store');
-Route::post('appointments', 'DonationController@createAppointment');
+Route::post('donor/appointments', 'DonationController@createAppointment');
 Route::get('donor/appointments', 'DonationController@returnHistory');
 
 
