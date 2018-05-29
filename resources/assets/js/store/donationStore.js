@@ -13,9 +13,9 @@ export default {
     actions: {
         createAppointment(context, data) {
             return axios.post('/api/appointments', data)
-                .then(response => context.dispatch('getAppointments'))
+                .then(() => context.dispatch('getAppointments'))
                 .catch(reason => console.log(reason.response));
-        }
+        },
         getAppointments(context) {
             return axios.get('/api/donor/appointments')
                 .then(response => context.commit('storeDonations', response.data))
