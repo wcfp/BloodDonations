@@ -65,14 +65,14 @@ class BloodRequestTest extends TestCase
         parent::setUp();
 
         $this->donor = factory(Donor::class)->create();
-        $this->doctor = factory(User::class)->create();
+        $this->doctor = factory(User::class)->create(['role' => UserType::DOCTOR]);
     }
 
 
     /*
     *  DOCTORS: test creation for non doctors
     */
-    public function testCreateBloodReuqestNotAllowedForDonors()
+    public function testCreateBloodRequestNotAllowedForDonors()
     {
         $this->actingAs($this->donor->user);
         $this
@@ -80,7 +80,15 @@ class BloodRequestTest extends TestCase
             ->assertStatus(403);
     }
 
-    public function testCreateBloodReuqestNotAllowedForAssistants()
+    public function testCreateBloodRequestSuccessfully()
+    {
+        $this->actingAs($this->doctor);
+        $this
+            ->json('post', '/api/blood/request', $this->data)
+            ->assertSuccessful();
+    }
+
+    public function testCreateBloodRequestNotAllowedForAssistants()
     {
         $this->actingAs(factory(User::class)->create(['role' => UserType::ASSISTANT]));
         $this
@@ -137,7 +145,7 @@ class BloodRequestTest extends TestCase
     /*
     *  DOCTORS: test get history of blood requests
     */
-    public function testHistoryBloodReuqestNotAllowedForAssistants()
+    public function testHistoryBloodRequestNotAllowedForAssistants()
     {
         $this->actingAs(factory(User::class)->create(['role' => UserType::ASSISTANT]));
 
@@ -145,7 +153,8 @@ class BloodRequestTest extends TestCase
             ->json('get', '/api/blood/request/history')
             ->assertStatus(403);
     }
-    public function testHistoryBloodReuqestNotAllowedForDonors()
+
+    public function testHistoryBloodRequestNotAllowedForDonors()
     {
         $this->actingAs($this->donor->user);
         $this
