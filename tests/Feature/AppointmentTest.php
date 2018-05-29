@@ -41,6 +41,15 @@ class AppointmentTest extends TestCase
             ->assertJson(['message' => "You can't make an appointment for the past"]);
     }
 
+    public function testCreateAppointmentSuccessfull()
+    {
+        $this->actingAs($this->donor->user);
+
+        $this
+            ->json('post', '/api/appointments', ['date' => Carbon::tomorrow()->toDateTimeString()])
+            ->assertSuccessful();
+    }
+
     public function testAppointmentInTheFuture()
     {
         $this->actingAs($this->donor->user);
