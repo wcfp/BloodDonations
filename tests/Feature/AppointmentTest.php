@@ -36,7 +36,7 @@ class AppointmentTest extends TestCase
         $this->actingAs($this->donor->user);
 
         $this
-            ->json('post', '/api/appointments', ['date' => Carbon::yesterday()->toDateTimeString()])
+            ->json('post', '/api/donor/appointments', ['date' => Carbon::yesterday()->toDateTimeString()])
             ->assertStatus(400)
             ->assertJson(['message' => "You can't make an appointment for the past"]);
     }
@@ -46,7 +46,7 @@ class AppointmentTest extends TestCase
         $this->actingAs($this->donor->user);
 
         $this
-            ->json('post', '/api/appointments', ['date' => Carbon::tomorrow()->toDateTimeString()])
+            ->json('post', '/api/donor/appointments', ['date' => Carbon::tomorrow()->toDateTimeString()])
             ->assertSuccessful();
     }
 
@@ -56,7 +56,7 @@ class AppointmentTest extends TestCase
 
         $appointmentDate = Carbon::tomorrow()->toDateTimeString();
         $this
-            ->json('post', '/api/appointments', ['date' => $appointmentDate])
+            ->json('post', '/api/donor/appointments', ['date' => $appointmentDate])
             ->assertSuccessful();
 
 
@@ -68,7 +68,7 @@ class AppointmentTest extends TestCase
     public function testNotAllowedForNonUsers()
     {
         $this
-            ->json('post', '/api/appointments', ['date' => Carbon::tomorrow()->toDateTimeString()])
+            ->json('post', '/api/donor/appointments', ['date' => Carbon::tomorrow()->toDateTimeString()])
             ->assertStatus(401);
     }
 
@@ -77,7 +77,7 @@ class AppointmentTest extends TestCase
         $this->actingAs(factory(User::class)->create(['role' => UserType::DOCTOR]));
 
         $this
-            ->json('post', '/api/appointments', ['date' => Carbon::tomorrow()->toDateTimeString()])
+            ->json('post', '/api/donor/appointments', ['date' => Carbon::tomorrow()->toDateTimeString()])
             ->assertStatus(403);
     }
 

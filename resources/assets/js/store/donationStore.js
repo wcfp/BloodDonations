@@ -12,7 +12,7 @@ export default {
     },
     actions: {
         createAppointment(context, data) {
-            return axios.post('/api/appointments', data)
+            return axios.post('/api/donor/appointments', data)
                 .then(() => context.dispatch('getAppointments'))
                 .catch(reason => console.log(reason.response));
         },
