@@ -21,6 +21,7 @@ class CreateDonorsTable extends Migration
             $table->enum('blood_type', ['0', 'A', 'B', 'AB'])->nullable();
             $table->enum('rh', ['+', '-'])->nullable();
             $table->string('phone_number');
+            $table->string('cnp');
             $table->integer('weight');
             $table->date('birth_date');
             $table->boolean('is_allowed')->default(true);

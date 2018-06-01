@@ -27,6 +27,7 @@ class DonorController extends Controller
                 'city' => $request->residence_city,
                 'street' => $request->residence_street,
                 'number' => $request->residence_number,
+
             ]);
         }
 
@@ -39,7 +40,8 @@ class DonorController extends Controller
             'birth_date' => $request->birth_date,
             'user_id' => auth()->id(),
             'current_address_id' => $current_address->id,
-            'residence_address_id' => isset($residence_address) ? $residence_address->id : null
+            'residence_address_id' => isset($residence_address) ? $residence_address->id : null,
+            'cnp'=>$request->cnp
         ]);
 
         DB::commit();
