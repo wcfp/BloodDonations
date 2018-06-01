@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use App\BloodRequest;
+use App\BloodRequestStatus;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\BloodFormRequest;
 use App\UserType;
@@ -38,8 +40,10 @@ class BloodRequestController extends Controller
         $blood_request->blood_type = $request->blood_type;
         $blood_request->rh = $request->rh;
         $blood_request->urgency_level = $request->urgency_level;
-        $blood_request->address = $location->id;
+        $blood_request->address_id = $location->id;
         $blood_request->doctor_id = auth()->id();
+        $blood_request->status = BloodRequestStatus::REQUESTED;
+        $blood_request->status_date = Carbon::now()->toDateTimeString();
 
         $blood_request->save();
 
@@ -86,5 +90,19 @@ class BloodRequestController extends Controller
         $bloodRequest->status = $request->status;
         $bloodRequest->save();
         return response()->json();
+    }
+
+    public function returnHistory(Request $request)
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+
+        if (auth()->user()->role != UserType::DOCTOR) {
+            return response("", 403);
+        }
+
+        return BloodRequest::where("status", BloodRequestStatus::REQUESTED)->get();
     }
 }
