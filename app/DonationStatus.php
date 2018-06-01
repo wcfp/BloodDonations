@@ -12,5 +12,9 @@ namespace App;
 interface DonationStatus
 {
     const REQUESTED = "requested";
-    //TODO the other status
+    const REGISTERED = "registered";
+    const COLLECTED = "collected";
+    const ANALYZED = "analyzed";
+    const STORED = "stored";
+    const REJECTED = "rejected";
 }

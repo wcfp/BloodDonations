@@ -7,12 +7,20 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'Auth\AuthController@register');
 });
 
-Route::post('appointments', 'DonationController@createAppointment');
-Route::get('appointments', 'DonationController@returnHistory');
+//donor routes
 Route::post('donor/profile', 'DonorController@store');
+Route::post('donor/appointments', 'DonationController@createAppointment');
+Route::get('donor/appointments', 'DonationController@returnHistory');
 
-Route::post('blood/request','BloodRequestController@createBloodRequest');
-Route::get('appointments', 'DonationController@getAllAppointments');
+
+//assistant routes
+Route::get('assistant/appointments', 'DonationController@getAllAppointments');
 Route::get('blood/requests', 'BloodRequestController@getAllBloodRequests');
 Route::get('blood/requests/{bloodRequest}', 'BloodRequestController@getBloodRequest');
 Route::patch('blood/requests/{bloodRequest}/status', 'BloodRequestController@changeBloodRequestStatus');
+
+//doctor routes
+Route::post('blood/request','BloodRequestController@createBloodRequest');
+Route::get('blood/request/history','BloodRequestController@returnHistory');
+
+//admin routes
