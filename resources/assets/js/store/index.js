@@ -14,7 +14,6 @@ export default new Vuex.Store({
         user: userModule,
         links: linksStore,
         donation: donationStore,
-        donor: donorStore,
         bloodContainer: bloodContainerStore,
         donor: donorStore,
         doctor: doctorStore
