@@ -15,7 +15,7 @@ export default new Vuex.Store({
         links: linksStore,
         donation: donationStore,
         donor: donorStore,
-        bloodContainer: bloodContainerStore
+        bloodContainer: bloodContainerStore,
         donor: donorStore,
         doctor: doctorStore
     }
