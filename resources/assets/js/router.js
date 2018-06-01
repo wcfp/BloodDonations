@@ -28,7 +28,7 @@ export default new VueRouter({
         {path: '/invitation', component: InvitationRegisterComponent},
         {path: '/request', component: DoctorBloodRequestPageComponent},
         {path: '/editP', component: EditProfileComponent},
-        {path: '/containers/all', component: BloodContainerComponent}
+        {path: '/containers/all', component: BloodContainerComponent},
         {path: '/requests/history', component:RequestHistoryPageComponent}
     ],
     mode: 'history',
