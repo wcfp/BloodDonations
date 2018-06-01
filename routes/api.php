@@ -24,3 +24,4 @@ Route::post('blood/request','BloodRequestController@createBloodRequest');
 Route::get('blood/request/history','BloodRequestController@returnHistory');
 
 //admin routes
+
