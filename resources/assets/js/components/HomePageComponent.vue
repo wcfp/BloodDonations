@@ -12,7 +12,7 @@
 		<i class="fas fa-check-circle fa-2x green"></i>	No alcohol or fat consumption in the last 48 hours<br>
 		<i class="fas fa-check-circle fa-2x green"></i>	Must not be in treatment for: hypertension, heart disease, kidney disease, mental illness, blood disease, or endocrine affections<br>
 
-        <h3>The donor must have or have had the following diseases:</h3>
+        <h3>The donor must NOT have or have had the following diseases:</h3>
         <i class="fas fa-times-circle fa-2x red"></i> Hepatitis (of any type)<br>
         <i class="fas fa-times-circle fa-2x red"></i>	TB<br>
         <i class="fas fa-times-circle fa-2x red"></i>	Pox<br>

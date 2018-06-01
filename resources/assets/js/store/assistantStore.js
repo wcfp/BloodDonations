@@ -14,7 +14,7 @@ export default {
                 .catch(reason => console.log(reason.response));
         },
         getRequest(context) {
-            return axios.get('/api/appointments')
+            return axios.get('/api/blood/request')
                 .then(response => context.commit('storeRequest', response.data))
                 .catch(reason => console.log(reason.response));
         }
