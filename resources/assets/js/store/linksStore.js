@@ -16,15 +16,16 @@ export default {
                 case 'DOCTOR':
                     state.links = [
                         {path: '/request', name: 'Request blood'},
-                        {path: '/requests', name: 'See ongoing requests'},
-                        {path: '/requests/past', name: 'Past requests'}
+                        {path: '/requests', name: 'Ongoing requests'},
+                        //{path: '/requests/past', name: 'Past requests'},
+                        {path: '/requests/history', name: 'Requests History'}
                     ];
                     return;
                 case 'ASSISTANT':
                     state.links = [
                         {path: '/requests/all', name: 'All blood requests'},
                         {path: '/donations/all', name: 'All donations'},
-
+                        {path:'/containers/all', name: 'All blood containers'}
                     ];
                     return;
                 case 'ADMIN':
