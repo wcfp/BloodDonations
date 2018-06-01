@@ -42,7 +42,7 @@ export default {
             });
         },
         logout(context) {
-            return axios.post('/api/auth/logout').then(() => {
+            return axios.post('/api/auth/logout').finally(() => {
                 context.commit('logout');
                 context.commit('resetLinks');
                 return true;

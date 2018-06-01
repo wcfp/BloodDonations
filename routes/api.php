@@ -15,9 +15,11 @@ Route::get('donor/appointments', 'DonationController@returnHistory');
 
 //assistant routes
 Route::get('assistant/appointments', 'DonationController@getAllAppointments');
+Route::get('assistant/containers', 'BloodContainerController@getAllBloodContainers');
 Route::get('blood/requests', 'BloodRequestController@getAllBloodRequests');
 Route::get('blood/requests/{bloodRequest}', 'BloodRequestController@getBloodRequest');
 Route::patch('blood/requests/{bloodRequest}/status', 'BloodRequestController@changeBloodRequestStatus');
+
 
 //doctor routes
 Route::post('blood/request','BloodRequestController@createBloodRequest');
