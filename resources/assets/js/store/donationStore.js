@@ -14,13 +14,14 @@ export default {
         createAppointment(context, data) {
             return axios.post('/api/donor/appointments', data)
                 .then(() => context.dispatch('getAppointments'))
-                .catch(reason => console.log(reason.response));
+                .catch(reason => {
+                    throw reason.response;
+                });
         },
         getAppointments(context) {
             return axios.get('/api/donor/appointments')
-                .then(response => context.commit('storeDonations', response.data))
+                .then(response => context.commit('createAppointment', response.data))
                 .catch(reason => console.log(reason.response));
         }
-
     }
 }

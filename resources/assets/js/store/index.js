@@ -4,6 +4,8 @@ import userModule from './userStore'
 import linksStore from "./linksStore";
 import donationStore from "./donationStore";
 import donorStore from "./donorStore";
+import doctorStore from "./doctorStore";
+import bloodContainerStore from "./bloodContainerStore";
 import assistantStore from "./assistantStore";
 
 Vue.use(Vuex);
@@ -13,7 +15,9 @@ export default new Vuex.Store({
         user: userModule,
         links: linksStore,
         donation: donationStore,
+        bloodContainer: bloodContainerStore,
         donor: donorStore,
+        doctor: doctorStore,
         assistant: assistantStore
     }
 });

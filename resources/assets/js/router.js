@@ -8,6 +8,8 @@ import InvitationPageComponent from './components/InvitationPageComponent'
 import InvitationRegisterComponent from './components/InvitationRegisterComponent';
 import DoctorBloodRequestPageComponent from './components/DoctorBloodRequestPageComponent'
 import EditProfileComponent from './components/EditProfileComponent'
+import BloodContainerComponent from './components/BloodContainerComponent'
+import RequestHistoryPageComponent from './components/RequestHistoryPageComponent';
 import AssistantAppointmentsComponent from './components/AssistantAppointmentsComponent'
 
 import VueRouter from "vue-router"
@@ -27,7 +29,8 @@ export default new VueRouter({
         {path: '/invitation', component: InvitationRegisterComponent},
         {path: '/request', component: DoctorBloodRequestPageComponent},
         {path: '/editP', component: EditProfileComponent},
-
+        {path: '/containers/all', component: BloodContainerComponent},
+        {path: '/requests/history', component:RequestHistoryPageComponent}
     ],
     mode: 'history',
 });

@@ -23,7 +23,6 @@
 <script>
     import  moment from 'moment'
     export default {
-        name: 'LabeledDatepicker',
         data: () => ({
             selectedDate: null,
             selectedTime: null,
@@ -42,8 +41,6 @@
         }
     }
 </script>
-
-
 
 <style scoped>
 
