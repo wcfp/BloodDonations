@@ -48,9 +48,43 @@ class DonorController extends Controller
     }
 
 
-    public function update(CreateDonorProfileRequest $request, Donor $donor)
+    /*
+     * UPDATE DONOR PROFILE AS ASSISTANT: la update se poate sa nu mearga :D
+     * P.S: don't hate me !!!
+     */
+    public function updateDonorProfileInfo(Donor $donor, UpdateDonorProfileRequest $request)
     {
-//        $is_allowed = auth()->user()->role == UserType::ASSISTANT ?
+        DB::beginTransaction();
+
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
+
+        DB::table('donors')
+            ->where('user_id', $donor->id)
+            ->update([
+                $donor->rh = $request->rh,
+                $donor->blood_type = $request->blood_type,
+                $donor->is_allowed = $request->is_allowed
+            ]);
+
+        DB::commit();
     }
 
+    public function getProfileInfo()
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::DONOR) {
+            return response("", 403);
+        }
+
+        return Donor::where('user_id', auth()->id())->firstOrFail();
+    }
 }

@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Address;
 use App\BloodRequest;
 use App\BloodRequestStatus;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Http\Requests\BloodFormRequest;
 use App\UserType;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 
 class BloodRequestController extends Controller
@@ -63,7 +63,20 @@ class BloodRequestController extends Controller
         return BloodRequest::all();
     }
 
-    public function getBloodRequest(BloodRequest $bloodRequest)
+    public function getBloodRequestDoctor(BloodRequest $bloodRequest)
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::DOCTOR) {
+            return response("", 403);
+        }
+
+        return $bloodRequest;
+    }
+
+    public function getBloodRequestAssistant(BloodRequest $bloodRequest)
     {
         if (!auth()->check()) {
             return response("", 401);
