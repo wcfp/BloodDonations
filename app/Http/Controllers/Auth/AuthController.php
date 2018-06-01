@@ -52,7 +52,7 @@ class AuthController extends Controller
     {
         $data = $request->only(['name', 'email', 'surname']);
         $user = User::make($data);
-        $user->role = UserType::DOCTOR;
+        $user->role = UserType::DONOR;
         $user->password = Hash::make($request->password);
 
         if (!$user->save()) {
