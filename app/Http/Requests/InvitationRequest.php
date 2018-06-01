@@ -6,7 +6,7 @@
  * Time: 3:51 PM
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Requests;
 
 
 use App\UserType;
@@ -28,9 +28,7 @@ class InvitationRequest extends FormRequest
     {
         return [
             'email' => 'required|email|unique:users,email',
-            'name' => 'required|string',
-            'surname' => 'required|string',
-            'password' => 'required|string|confirmed'
+            'role' => 'required|in:ASSISTANT,DOCTOR'
         ];
     }
 

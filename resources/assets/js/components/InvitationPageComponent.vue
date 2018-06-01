@@ -12,8 +12,8 @@
                         <label for="user_type" class="sr-only">User type</label>
                         <select id="user_type" class="custom-select" v-model="userType" required>
                             <option value="" selected>Select user type</option>
-                            <option value="assistant">Assistant</option>
-                            <option value="doctor">Doctor</option>
+                            <option value="ASSISTANT">Assistant</option>
+                            <option value="DOCTOR">Doctor</option>
                         </select>
                     </div>
                     <input type="submit" class="btn btn-primary btn-block" value="Invite">
@@ -33,7 +33,10 @@
         },
         methods: {
             invite() {
-                console.log(event);
+                axios.post('/api/admin/invite', {email: this.email, role: this.userType})
+                    .then(response => {
+                        console.log(response);
+                    })
             }
         }
     }
