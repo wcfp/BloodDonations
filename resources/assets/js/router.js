@@ -9,6 +9,8 @@ import InvitationRegisterComponent from './components/InvitationRegisterComponen
 import DoctorBloodRequestPageComponent from './components/DoctorBloodRequestPageComponent'
 import EditProfileComponent from './components/EditProfileComponent'
 import BloodContainerComponent from './components/BloodContainerComponent'
+import RequestHistoryPageComponent from './components/RequestHistoryPageComponent';
+
 import VueRouter from "vue-router"
 import Vue from "vue"
 
@@ -27,6 +29,7 @@ export default new VueRouter({
         {path: '/request', component: DoctorBloodRequestPageComponent},
         {path: '/editP', component: EditProfileComponent},
         {path: '/containers/all', component: BloodContainerComponent}
+        {path: '/requests/history', component:RequestHistoryPageComponent}
     ],
     mode: 'history',
 });
