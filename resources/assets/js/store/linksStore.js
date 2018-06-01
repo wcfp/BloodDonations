@@ -24,7 +24,7 @@ export default {
                     state.links = [
                         {path: '/requests/all', name: 'All blood requests'},
                         {path: '/donations/all', name: 'All donations'},
-
+                        {path:'/containers/all', name: 'All blood containers'}
                     ];
                     return;
                 case 'ADMIN':

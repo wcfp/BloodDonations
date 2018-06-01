@@ -18,7 +18,7 @@ class BloodContainer extends Model
         return $this->belongsTo(BloodRequest::class);
     }
 
-    public function donor(){
-        return $this->belongsTo(Donor::class);
+    public function donation(){
+        return $this->belongsTo(Donation::class);
     }
 }
