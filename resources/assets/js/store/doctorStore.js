@@ -4,7 +4,7 @@ export default {
     },
     mutations: {
                 storeRequest(state, newRequest) {
-            state.request = newRequest
+            state.requests = newRequest
         }
 
     },
@@ -15,11 +15,11 @@ export default {
     actions: {
         createRequest(context, data) {
             return axios.post('/api/blood/request', data)
-                .then(response => context.dispatch('getRequest'))
+                .then(() => context.dispatch('getRequest'))
                 .catch(reason => console.log(reason.response));
         },
         getRequest(context) {
-            return axios.get('/api/blood/request')
+            return axios.get('/api/blood/request/history')
                 .then(response => context.commit('storeRequest', response.data))
                 .catch(reason => console.log(reason.response));
         }
