@@ -19,7 +19,7 @@
                 return this.$route.path === "/" && !this.$store.getters.loggedIn;
             }
         },
-        mounted() {
+        beforeMount() {
             this.$store.dispatch('autologin')
         }
     }
