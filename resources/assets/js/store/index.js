@@ -6,6 +6,7 @@ import donationStore from "./donationStore";
 import donorStore from "./donorStore";
 import doctorStore from "./doctorStore";
 import bloodContainerStore from "./bloodContainerStore";
+import assistantStore from "./assistantStore";
 
 Vue.use(Vuex);
 
@@ -16,7 +17,8 @@ export default new Vuex.Store({
         donation: donationStore,
         bloodContainer: bloodContainerStore,
         donor: donorStore,
-        doctor: doctorStore
+        doctor: doctorStore,
+        assistant: assistantStore
     }
 });
 
