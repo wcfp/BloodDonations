@@ -50,4 +50,9 @@ class DonorController extends Controller
     {
 //        $is_allowed = auth()->user()->role == UserType::ASSISTANT ?
     }
+
+    public function changeProfile(CreateDonorProfileRequest $request, Donor $donor)
+    {
+
+    }
 }

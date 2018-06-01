@@ -22,13 +22,13 @@ class RegisterDonorTest extends TestCase
 
     public function testRegisteredUserBecomesDonor()
     {
-        $this->assertFalse(User::whereRole(UserType::DONOR)->exists());
+        $this->assertFalse(User::whereRole(UserType::DOCTOR)->exists());
         $this->json('post', "/api/auth/register", $this->data)
             ->assertSuccessful();
 
         $user = User::first();
         $this->assertNotNull($user);
-        $this->assertEquals(UserType::DONOR, $user->role);
+        $this->assertEquals(UserType::DOCTOR, $user->role);
         $this->assertEquals($this->data['name'], $user->name);
         $this->assertEquals($this->data['surname'], $user->surname);
         $this->assertEquals($this->data['email'], $user->email);
