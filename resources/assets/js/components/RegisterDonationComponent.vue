@@ -1,36 +1,49 @@
 <template>
     <div>
-        <h2>Please choose the date for your next appointment: </h2>
-        <div class="col-xs-12 col-sm-10 offset-sm-1">
-
-            <div class="form-group">
-                <label for="appointment_date" class="sr-only">DATE: </label>
-                <input id="appointment_date" class="form-control col" type="date" v-model="date">
-            </div>
-
+        <h3>Please choose the date for your next appointment: </h3>
+        <div style="margin-bottom:300px">
+            <md-datepicker v-model="selectedDate" >
+                <label>Select date</label>
+            </md-datepicker>
+        </div>
+        <h3>Please choose the time for your next appointment: </h3>
+        <md-field>
+            <label>Select time (hour:minute:seconds)</label>
+            <md-input v-model="selectedTime"></md-input>
+        </md-field>
+        <div class="container">
+            <md-button class="md-raised md-accent" @click="createAppointment()">SAVE</md-button>
         </div>
 
-        <button @click="createAppointment()">Save date</button>
     </div>
-
 </template>
 
+
+
 <script>
+    import  moment from 'moment'
     export default {
-        data()
-        {
-            return {
-            date: ""
-        }},
+        name: 'LabeledDatepicker',
+        data: () => ({
+            selectedDate: null,
+            selectedTime: null,
+            appointmentDate :null
+        }),
 
         methods: {
+
             createAppointment() {
-                console.log(this.date);
-                this.$store.dispatch('createAppointment', {date: this.date.format('Y-m-d H:i:s')})
+                this.selectedDate = moment(this.selectedDate).format('YYYY-MM-DD');
+                this.appointmentDate=this.selectedDate+" "+this.selectedTime;
+                console.log(this.appointmentDate);
+                this.$store.dispatch('createAppointment', {date: this.appointmentDate})
                     .then(response => this.$router.push('/'));
             }
-        }}
+        }
+    }
 </script>
+
+
 
 <style scoped>
 
