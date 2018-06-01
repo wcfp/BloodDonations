@@ -19,11 +19,11 @@ class CreateBloodContainersTable extends Migration
             $table->integer("quantity");
             $table->date("store_date");
             $table->integer("blood_request_id")->unsigned()->nullable();
-            $table->integer("donation_id");
+            $table->integer("donation_id")->unsigned();
             $table->timestamps();
 
-            $table->foreign("blood_request_id")->references("id")->on("blood_request");
-            $table->foreign("donation_id")->references("id")->on("donation");
+            $table->foreign("blood_request_id")->references("id")->on("blood_requests");
+            $table->foreign("donation_id")->references("id")->on("donations");
         });
     }
 
