@@ -10,7 +10,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="appointment in appointments">
+            <tr v-for="appointment in followingAppointments">
                 <td>{{appointment.appointment_date}}</td>
                 <td>{{appointment.status.toUpperCase()}}</td>
                 <td>{{appointment.status_date}}</td>
@@ -26,12 +26,12 @@
     export default {
         name: "AssistantAppointmentsComponent",
         computed: {
-            appointments(){
-                return this.$store.getters.appointments;
+            followingAppointments(){
+                return this.$store.getters.followingAppointments;
             }
         },
         mounted() {
-            this.$store.dispatch('getAppointments');
+            this.$store.dispatch('getFollowingAppointments');
         }
 
     }

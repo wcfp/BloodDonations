@@ -1,16 +1,21 @@
 export default {
     state: {
-        appointments: []
+        followingAppointments: []
     },
 
     getters: {
-        appointments: (state) => state.appointments()
+        followingAppointments: (state) => state.followingAppointments
 
     },
+    mutations: {
+        storeAppointments(state, newApp) {
+            state.followingAppointments = newApp
+        }
+    },
     actions: {
-        getAppointments(context) {
+        getFollowingAppointments(context) {
             return axios.get('/api/assistant/appointments')
-                .then(response => context.commit('getAppointments', response.data))
+                .then(response => context.commit('storeAppointments', response.data))
                 .catch(reason => console.log(reason.response));
         }
     }

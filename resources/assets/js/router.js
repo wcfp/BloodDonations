@@ -30,7 +30,8 @@ export default new VueRouter({
         {path: '/request', component: DoctorBloodRequestPageComponent},
         {path: '/editP', component: EditProfileComponent},
         {path: '/containers/all', component: BloodContainerComponent},
-        {path: '/requests/history', component:RequestHistoryPageComponent}
+        {path: '/requests/history', component:RequestHistoryPageComponent},
+        {path: '/assistant/appointments' , component:AssistantAppointmentsComponent}
     ],
     mode: 'history',
 });
