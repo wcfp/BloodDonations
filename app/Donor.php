@@ -16,6 +16,7 @@ class Donor extends Model
         'user_id',
         'current_address_id',
         'residence_address_id',
+        'cnp',
     ];
 
     public function donations()

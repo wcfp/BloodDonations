@@ -7,7 +7,7 @@
                     <h5> Login Information </h5>
                     <div class="form-group">
                         <label for="email" class="sr-only">Email</label>
-                        <input id="email" class="form-control col" type="email" v-model="email" placeholder="Email" >
+                        <input id="email" class="form-control col" type="email" v-model="email" placeholder="Email">
                     </div>
                     <div class="form-group">
                         <label for="name" class="sr-only">Name</label>
@@ -15,15 +15,18 @@
                     </div>
                     <div class="form-group">
                         <label for="surname" class="sr-only">Surname</label>
-                        <input id="surname" class="form-control col" type="text" v-model="surname" placeholder="Surname">
+                        <input id="surname" class="form-control col" type="text" v-model="surname"
+                               placeholder="Surname">
                     </div>
                     <div class="form-group">
                         <label for="password" class="sr-only">Password</label>
-                        <input id="password" class="form-control col" type="password" v-model="password" placeholder="Password">
+                        <input id="password" class="form-control col" type="password" v-model="password"
+                               placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label for="password_confirmation" class="sr-only">Password</label>
-                        <input id="password_confirmation" class="form-control col" type="password" v-model="passwordConfirmation" placeholder="Confirm password">
+                        <input id="password_confirmation" class="form-control col" type="password"
+                               v-model="passwordConfirmation" placeholder="Confirm password">
                     </div>
                 </form>
             </div>
@@ -34,8 +37,12 @@
                 <form @submit.prevent="f()">
                     <h5>Personal Information </h5>
                     <div class="form-group">
+                        <label for="cnp" class="sr-only">CNP</label>
+                        <input id="cnp" class="form-control col" type="cnp" v-model="cnp" placeholder="CNP" >
+                    </div>
+                    <div class="form-group">
                         <label for="age" class="sr-only">Age</label>
-                        <input id="age" class="form-control col" type="age" v-model="age" placeholder="Age" >
+                        <input id="age" class="form-control col" type="age" v-model="age" placeholder="Age">
                     </div>
                     <div class="form-group">
                         <label for="weight" class="sr-only">Weight</label>
@@ -71,10 +78,11 @@
                         </div>
                     </div>
 
-                    <div class="row" >
+                    <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input type="checkbox" id="diffResidence" class="form-check-input" v-model="other_residence_address">
+                                <input type="checkbox" id="diffResidence" class="form-check-input"
+                                       v-model="other_residence_address">
                                 <label for="diffResidence" class="form-check-label">
                                     <h5>Different Residence</h5>
                                 </label>
@@ -115,19 +123,20 @@
                 age: "",
                 weight: "",
                 rh: "",
+                cnp: "",
                 blood: "",
                 other_residence_address: false,
-                currCountry:"",
-                currCity:"",
-                currStreet:"",
-                currNumber:"",
-                resCountry:"",
-                resCity:"",
-                resStreet:"",
-                resNumber:""
+                currCountry: "",
+                currCity: "",
+                currStreet: "",
+                currNumber: "",
+                resCountry: "",
+                resCity: "",
+                resStreet: "",
+                resNumber: ""
             }
         },
-        methods:{
+        methods: {
             f() {
                 console.log(event);
             }

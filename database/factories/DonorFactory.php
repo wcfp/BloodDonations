@@ -18,5 +18,6 @@ $factory->define(App\Donor::class, function (Faker $faker) {
         'weight' => $faker->numberBetween(50, 100),
         'birth_date' => $faker->dateTimeBetween(),
         'phone_number' => $faker->phoneNumber,
+        'cnp' => $faker->numerify('#############'),
     ];
 });

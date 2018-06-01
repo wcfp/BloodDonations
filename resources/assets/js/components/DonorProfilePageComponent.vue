@@ -13,6 +13,11 @@
                                placeholder="Phone number">
                     </div>
                     <div class="form-group">
+                        <label for="cnp" class="sr-only">CNP</label>
+                        <input id="cnp" class="form-control col" type="text" v-model="cnp"
+                               placeholder="CNP">
+                    </div>
+                    <div class="form-group">
                         <label for="weight" class="sr-only">Weight</label>
                         <input id="weight" class="form-control col" type="number" v-model="weight" placeholder="Weight">
                     </div>
@@ -109,7 +114,8 @@
                 residence_city: "",
                 residence_street: "",
                 residence_number: "",
-                phone_number: ""
+                phone_number: "",
+                cnp:""
             }
         },
         methods: {
@@ -117,6 +123,7 @@
                 this.$store.dispatch('saveInfo', {
                     weight: this.weight,
                     rh: this.rh,
+                    cnp: this.cnp,
                     phone_number: this.phone_number,
                     blood_type: this.blood_type,
                     birth_date: this.birth_date,
