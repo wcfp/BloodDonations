@@ -33,8 +33,8 @@
                            placeholder="Urgency level">
                 </div>
                 <div class="form-group">
-                    <label for="current_country" class="sr-only">Country</label>
-                    <input id="current_country" v-model="country" type="text" class="form-control"
+                    <label for="country" class="sr-only">Country</label>
+                    <input id="country" v-model="country" type="text" class="form-control"
                            placeholder="Country">
                 </div>
                 <div class="form-group">
@@ -77,6 +77,7 @@
         },
         methods: {
             createRequest() {
+                console.log('create request -> doctor component')
                 this.$store.dispatch('createRequest', {
                     red_blood_cells_quantity: this.red_blood_cells_quantity,
                     thrombocyte_quantity: this.thrombocyte_quantity,
