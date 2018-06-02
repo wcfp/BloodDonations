@@ -2,7 +2,7 @@
     <div class="col-xs-12 col-sm-10 offset-sm-1">
         <div class="card">
             <div class="card-body">
-                <form @submit.prevent="saveInfo()">
+                <form @submit.prevent="saveInfo()" >
                     <div class="form-group">
                         <label for="birth_date" class="sr-only">Birth date</label>
                         <input id="birth_date" class="form-control col" type="date" v-model="birth_date" value="Birth date">
