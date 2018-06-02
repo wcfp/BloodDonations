@@ -64,8 +64,7 @@ class DonorController extends Controller
             return response("", 403);
         }
 
-        DB::table('donors')
-            ->where('user_id', $donor->id)
+        $donor
             ->update([
                 $donor->rh = $request->rh,
                 $donor->blood_type = $request->blood_type,
