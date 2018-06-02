@@ -19,7 +19,14 @@ use Tests\TestCase;
 class DonorHistoryTest extends TestCase
 {
     use RefreshDatabase;
-    private $donor;
+    private $data = [
+        'name' => "oana",
+        'surname' => 'sabadas',
+        'email' => 'email@test2.com',
+        'password' => 'password',
+        'password_confirmation' => 'password'
+    ];
+
 
     public function testDoctorNotAllowedForDonorAppointments()
     {
@@ -51,11 +58,24 @@ class DonorHistoryTest extends TestCase
             ->assertSuccessful()->assertJsonCount(10);
     }
 
+    public function testGetOneDonorProfileData()
+    {
+
+        $this->json('post', "/api/auth/register", $this->data)
+            ->assertSuccessful();
+
+        $user = User::first();
+        $this->assertNotNull($user);
+        $this->assertEquals(UserType::DONOR, $user->role);
+        $this->assertEquals($this->data['name'], $user->name);
+        $this->assertEquals($this->data['surname'], $user->surname);
+        $this->assertEquals($this->data['email'], $user->email);
+    }
+
     protected function setUp()
     {
         parent::setUp();
 
-        $this->donor = factory(Donor::class)->create();
     }
 
 
