@@ -36,6 +36,7 @@ class BloodFormRequest extends FormRequest
             'city' => 'required|string',
             'street' => 'required|string',
             'number' => 'required|numeric',
+            'cnp' => 'nullable|string'
         ];
     }
 
