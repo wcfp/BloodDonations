@@ -5,6 +5,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('logout', 'Auth\AuthController@logout');
     Route::get('me', 'Auth\AuthController@me');
     Route::post('register', 'Auth\AuthController@register');
+    Route::post('invitation/register', 'Auth\AuthController@invitationRegister');
+
 });
 
 //donor routes
@@ -27,3 +29,4 @@ Route::get('blood/request/history','BloodRequestController@returnHistory');
 
 //admin routes
 Route::post('admin/invite', 'InvitationController@invite');
+Route::get('invitation', 'InvitationController@invitation');

@@ -33,10 +33,7 @@
         },
         methods: {
             invite() {
-                axios.post('/api/admin/invite', {email: this.email, role: this.userType})
-                    .then(response => {
-                        console.log(response);
-                    })
+                axios.post('/api/admin/invite', {email: this.email, role: this.userType});
             }
         }
     }
