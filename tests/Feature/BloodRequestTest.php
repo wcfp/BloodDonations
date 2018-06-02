@@ -31,7 +31,8 @@ class BloodRequestTest extends TestCase
         'country' => 'abc',
         'city' => 'asdf',
         'street' => 'asF',
-        'number' => 123
+        'number' => 123,
+        'cnp'=>null
     ];
 
     private $data_rbcq_rh_fail = [
@@ -44,7 +45,8 @@ class BloodRequestTest extends TestCase
         'country' => 'abc',
         'city' => 'asdf',
         'street' => 'asF',
-        'number' => 123
+        'number' => 123,
+        'cnp'=>null
     ];
 
     private $data_rbcq_blood_type_fail = [
@@ -57,7 +59,8 @@ class BloodRequestTest extends TestCase
         'country' => 'abc',
         'city' => 'asdf',
         'street' => 'asF',
-        'number' => 123
+        'number' => 123,
+        'cnp'=>null
     ];
 
     protected function setUp()

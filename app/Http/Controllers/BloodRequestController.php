@@ -10,6 +10,7 @@ use App\Http\Requests\BloodFormRequest;
 use App\UserType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class BloodRequestController extends Controller
