@@ -13,5 +13,5 @@ namespace App;
 interface BloodRequestStatus
 {
     const REQUESTED = "requested";
-    //TODO the other status
+    const DONE = "done";
 }
