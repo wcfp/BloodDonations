@@ -41,17 +41,13 @@ class DonorController extends Controller
             'user_id' => auth()->id(),
             'current_address_id' => $current_address->id,
             'residence_address_id' => isset($residence_address) ? $residence_address->id : null,
-            'cnp'=>$request->cnp
+            'cnp' => $request->cnp
         ]);
 
         DB::commit();
     }
 
 
-    /*
-     * UPDATE DONOR PROFILE AS ASSISTANT: la update se poate sa nu mearga :D
-     * P.S: don't hate me !!!
-     */
     public function updateDonorProfileInfo(Donor $donor, UpdateDonorProfileRequest $request)
     {
         DB::beginTransaction();
@@ -64,12 +60,11 @@ class DonorController extends Controller
             return response("", 403);
         }
 
-        $donor
-            ->update([
-                $donor->rh = $request->rh,
-                $donor->blood_type = $request->blood_type,
-                $donor->is_allowed = $request->is_allowed
-            ]);
+        $donor->update([
+            "rh" => $request->rh,
+            "blood_type" => $request->blood_type,
+            "is_allowed" => $request->is_allowed
+        ]);
 
         DB::commit();
     }

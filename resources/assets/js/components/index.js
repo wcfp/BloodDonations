@@ -5,6 +5,7 @@ import NavigationBar from './Navbar'
 import UserControls from './UserControls'
 import HomePageComponent from "./HomePageComponent"
 import WelcomePageComponent from "./WelcomePageComponent"
+import ErrorsComponent from "./ErrorsComponent"
 // import DatePicker from 'vuejs-datepicker';
 
 
@@ -14,4 +15,5 @@ Vue.component('app-navbar', NavigationBar);
 Vue.component('user-controls', UserControls);
 Vue.component('home-page', HomePageComponent);
 Vue.component('welcome-page', WelcomePageComponent);
+Vue.component('errors', ErrorsComponent);
 // Vue.component('date-picker', DatePicker);

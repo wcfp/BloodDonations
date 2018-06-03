@@ -6,6 +6,7 @@ use App\Donor;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\InvitationRegisterRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 use App\Invitation;
 use App\User;
 use App\UserType;
@@ -18,12 +19,12 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register', 'invitationRegister']]);
     }
 
-    public function login()
+    public function login(LoginRequest $request)
     {
-        $credentials = request(['email', 'password']);
+        $credentials = $request->all(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['errors' => ['Invalid username/password']], 401);
         }
 
         return $this->respondWithToken($token);
@@ -58,11 +59,10 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
 
         if (!$user->save()) {
-            return response()->json("User cannot be saved", 500);
+            return response()->json(["errors" => ["User cannot be saved"]], 500);
         }
 
         $user = $user->refresh();
-        factory(Donor::class)->create(['user_id' => $user->id]);
 
         return $this->respondWithToken(auth()->login($user));
     }
@@ -78,7 +78,7 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
 
         if (!$user->save()) {
-            return response()->json("User cannot be saved", 500);
+            return response()->json(["errors" => ["User cannot be saved"]], 500);
         }
 
         $user = $user->refresh();

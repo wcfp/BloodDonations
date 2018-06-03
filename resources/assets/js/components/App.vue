@@ -5,6 +5,7 @@
             <router-view></router-view>
         </div>
         <div class="container mt-5" v-else>
+            <errors></errors>
             <div class="col">
                 <router-view></router-view>
             </div>

@@ -36,29 +36,20 @@ export default {
                 context.commit('userinfo', response.data.name, response.data.surname, response.data.role);
                 context.commit('setLinksFor', response.data.role);
                 return true;
-            }).catch((reason) => {
-                console.log(reason.response);
-                return false;
-            });
+            })
         },
         logout(context) {
             return axios.post('/api/auth/logout').finally(() => {
                 context.commit('logout');
                 context.commit('resetLinks');
                 return true;
-            }).catch((reason) => {
-                console.log(reason.response);
-                return false;
-            });
+            })
         },
         login(context, data) {
             return axios.post('/api/auth/login', data).then((response) => {
                 console.log(response);
                 context.commit('storeToken', response.data.access_token);
                 return context.dispatch('userinfo');
-            }).catch((reason) => {
-                console.log(reason.response.data.errors);
-                return reason.response.data.errors;
             })
         },
         register(context, data) {
@@ -66,9 +57,6 @@ export default {
                 console.log(response);
                 context.commit('storeToken', response.data.access_token);
                 return context.dispatch('userinfo');
-            }).catch((reason) => {
-                console.log(reason.response.data.errors);
-                return reason.response.data.errors;
             })
         },
         autologin(context) {
