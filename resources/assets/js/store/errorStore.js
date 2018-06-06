@@ -3,13 +3,10 @@ export default {
         errors: []
     },
     mutations: {
-        addError(state, error) {
-            error.forEach(e => {
-                console.log(e);
-                if (!state.errors.find(el => el === e)) {
-                    state.errors.push(e)
-                }
-            });
+        addError(state, errors) {
+
+            console.log(Object.values(errors));
+            state.errors = Object.values(errors).map(value => typeof value === "string" ? value : value.join(""));
         },
         clearErrors(state) {
             state.errors = []

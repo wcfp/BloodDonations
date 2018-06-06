@@ -32,4 +32,7 @@ Route::get('blood/request/history','BloodRequestController@returnHistory');
 Route::get('blood/requests/history/{bloodRequest}', 'BloodRequestController@getBloodRequestDoctor');
 //admin routes
 Route::post('admin/invite', 'InvitationController@invite');
+Route::get('admin/users', 'AdminController@users');
+
+
 Route::get('invitation', 'InvitationController@invitation');

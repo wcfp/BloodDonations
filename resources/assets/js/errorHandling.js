@@ -2,11 +2,12 @@ import store from './store/index'
 
 
 window.axios.interceptors.response.use(
-    response => response,
+    response => {
+        store.commit("clearErrors");
+        return response;
+    },
     error => {
-        Object.values(error.response.data.errors).forEach(values => {
-            store.commit('addError', values)
-        });
+        store.commit("addError", error.response.data.errors);
         return Promise.reject(error);
     }
 );
