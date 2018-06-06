@@ -34,16 +34,16 @@ class BloodRequestController extends Controller
             'number' => $request->number,
         ]);
 
-        $blood_request = new BloodRequest;
+        $blood_request = new BloodRequest();
         $cnp = $request->cnp;
-        $blood_request->urgency_level = $request->urgency_level;
+        $blood_request->urgency_level = $request->urgency_level ?: 'low';
         if ($cnp != null && Donor::where('cnp', $cnp)->exists()) {
             $blood_request->urgency_level = 'high';
         }
 
-        $blood_request->thrombocyte_quantity = $request->thrombocyte_quantity;
-        $blood_request->plasma_quantity = $request->plasma_quantity;
-        $blood_request->red_blood_cells_quantity = $request->red_blood_cells_quantity;
+        $blood_request->thrombocyte_quantity = $request->thrombocyte_quantity ?: 0;
+        $blood_request->plasma_quantity = $request->plasma_quantity ?: 0;
+        $blood_request->red_blood_cells_quantity = $request->red_blood_cells_quantity ?: 0;
         $blood_request->blood_type = $request->blood_type;
         $blood_request->rh = $request->rh;
         $blood_request->address_id = $location->id;
@@ -68,6 +68,19 @@ class BloodRequestController extends Controller
         }
 
         return BloodRequest::all();
+    }
+
+    public function getMyBloodRequests()
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::DOCTOR) {
+            return response("", 403);
+        }
+
+        return BloodRequest::where('doctor_id', auth()->id())->where('status', BloodRequestStatus::REQUESTED)->get();
     }
 
     public function getBloodRequestDoctor(BloodRequest $bloodRequest)
@@ -123,6 +136,6 @@ class BloodRequestController extends Controller
             return response("", 403);
         }
 
-        return BloodRequest::where("status", BloodRequestStatus::REQUESTED)->get();
+        return BloodRequest::where("doctor_id", auth()->id())->where('status', BloodRequestStatus::DONE)->get();
     }
 }

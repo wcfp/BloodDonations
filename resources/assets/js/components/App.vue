@@ -20,7 +20,7 @@
                 return this.$route.path === "/" && !this.$store.getters.loggedIn;
             }
         },
-        beforeMount() {
+        beforeCreate() {
             this.$store.dispatch('autologin')
         }
     }

@@ -30,6 +30,7 @@ Route::patch('assistant/donor/{donor}','DonorController@updateProfileInfo');
 Route::post('blood/request','BloodRequestController@createBloodRequest');
 Route::get('blood/request/history','BloodRequestController@returnHistory');
 Route::get('blood/requests/history/{bloodRequest}', 'BloodRequestController@getBloodRequestDoctor');
+Route::get('doctor/requests', 'BloodRequestController@getMyBloodRequests');
 //admin routes
 Route::post('admin/invite', 'InvitationController@invite');
 Route::get('admin/users', 'AdminController@users');

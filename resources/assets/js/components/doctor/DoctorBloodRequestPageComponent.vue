@@ -33,6 +33,11 @@
                            placeholder="Urgency level">
                 </div>
                 <div class="form-group">
+                    <label for="cnp" class="sr-only">Patient cnp (used for priority)</label>
+                    <input id="cnp" class="form-control col" type="text" v-model="cnp"
+                           placeholder="Patient cnp(used for priority)">
+                </div>
+                <div class="form-group">
                     <label for="country" class="sr-only">Country</label>
                     <input id="country" v-model="country" type="text" class="form-control"
                            placeholder="Country">
@@ -72,12 +77,12 @@
                 city: "",
                 number: "",
                 street: "",
+                cnp: ""
 
             }
         },
         methods: {
             createRequest() {
-                console.log('create request -> doctor component')
                 this.$store.dispatch('createRequest', {
                     red_blood_cells_quantity: this.red_blood_cells_quantity,
                     thrombocyte_quantity: this.thrombocyte_quantity,
@@ -88,9 +93,9 @@
                     country: this.country,
                     city: this.city,
                     number: this.number,
-                    street: this.street
-                })
-                    .then(response => this.$router.push('/requests/history'));
+                    street: this.street,
+                    cnp: this.cnp,
+                }).then(response => this.$router.push('/doctor/requests'));
             }
         }
     }

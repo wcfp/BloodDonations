@@ -52,14 +52,12 @@ export default {
         },
         login(context, data) {
             return axios.post('/api/auth/login', data).then((response) => {
-                console.log(response);
                 context.commit('storeToken', response.data.access_token);
                 return context.dispatch('userinfo');
             })
         },
         register(context, data) {
             return axios.post('/api/auth/register', data).then((response) => {
-                console.log(response);
                 context.commit('storeToken', response.data.access_token);
                 return context.dispatch('userinfo');
             })

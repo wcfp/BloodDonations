@@ -1,12 +1,11 @@
 import Vue from "vue";
-import FontAwesomeIcon from "./FontAwesomeIcon";
+import FontAwesomeIcon from "./shared/FontAwesomeIcon";
 import App from "./App";
-import NavigationBar from './Navbar'
-import UserControls from './UserControls'
-import HomePageComponent from "./HomePageComponent"
-import WelcomePageComponent from "./WelcomePageComponent"
-import ErrorsComponent from "./ErrorsComponent"
-// import DatePicker from 'vuejs-datepicker';
+import NavigationBar from './shared/Navbar'
+import UserControls from './shared/UserControls'
+import HomePageComponent from "./shared/HomePageComponent"
+import WelcomePageComponent from "./shared/WelcomePageComponent"
+import ErrorsComponent from "./shared/ErrorsComponent"
 
 
 Vue.component('fa-icon', FontAwesomeIcon);
@@ -16,4 +15,3 @@ Vue.component('user-controls', UserControls);
 Vue.component('home-page', HomePageComponent);
 Vue.component('welcome-page', WelcomePageComponent);
 Vue.component('errors', ErrorsComponent);
-// Vue.component('date-picker', DatePicker);

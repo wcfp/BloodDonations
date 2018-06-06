@@ -34,7 +34,6 @@
             createAppointment() {
                 this.selectedDate = moment(this.selectedDate).format('YYYY-MM-DD');
                 this.appointmentDate=this.selectedDate+" "+this.selectedTime;
-                console.log(this.appointmentDate);
                 this.$store.dispatch('createAppointment', {date: this.appointmentDate})
                     .then(response => this.$router.push('/'));
             }

@@ -65,8 +65,13 @@
                 return this.$store.getters.users;
             }
         },
-        mounted() {
-            this.$store.dispatch("getUsersAdmin");
+        created() {
+            if (this.userType === 'DOCTOR') {
+                this.$router.replace('doctor/requests');
+            }
+            if (this.userType === 'ADMIN') {
+                this.$store.dispatch("getUsersAdmin");
+            }
         }
     }
 </script>

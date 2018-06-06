@@ -70,7 +70,7 @@
                     }).catch(() => this.$router.replace('/'));
             }
         },
-        mounted() {
+        created() {
             this.getInvitationData();
         }
     }

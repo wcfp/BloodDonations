@@ -23,7 +23,7 @@
                 return this.$store.getters.containers;
             }
         },
-        mounted() {
+        created() {
             this.$store.dispatch('getContainers');
         }
     }
