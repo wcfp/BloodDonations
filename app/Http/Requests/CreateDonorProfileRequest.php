@@ -27,6 +27,7 @@ class CreateDonorProfileRequest extends FormRequest
         return [
             'blood_type' => 'in:A,B,AB,0',
             'rh' => 'in:+,-',
+            'cnp'=>'required|string',
             'phone_number' => ['required', 'regex:/\d+/'],
             'weight' => 'required|numeric',
             'birth_date' => 'required|date',

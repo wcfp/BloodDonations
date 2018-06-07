@@ -41,16 +41,44 @@ class DonorController extends Controller
             'user_id' => auth()->id(),
             'current_address_id' => $current_address->id,
             'residence_address_id' => isset($residence_address) ? $residence_address->id : null,
-            'cnp'=>$request->cnp
+            'cnp' => $request->cnp
         ]);
 
         DB::commit();
     }
 
 
-    public function update(CreateDonorProfileRequest $request, Donor $donor)
+    public function updateDonorProfileInfo(Donor $donor, UpdateDonorProfileRequest $request)
     {
-//        $is_allowed = auth()->user()->role == UserType::ASSISTANT ?
+        DB::beginTransaction();
+
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
+
+        $donor->update([
+            "rh" => $request->rh,
+            "blood_type" => $request->blood_type,
+            "is_allowed" => $request->is_allowed
+        ]);
+
+        DB::commit();
     }
 
+    public function getProfileInfo()
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::DONOR) {
+            return response("", 403);
+        }
+
+        return Donor::where('user_id', auth()->id())->firstOrFail();
+    }
 }

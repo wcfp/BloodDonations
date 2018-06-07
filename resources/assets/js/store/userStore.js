@@ -4,10 +4,11 @@ export default {
         token: '',
         name: '',
         surname: '',
-        role: ''
+        role: '',
+        usersAdmin: []
     },
     mutations: {
-        userinfo(state, name, surname, role) {
+        userinfo(state, [name, surname, role]) {
             state.name = name;
             state.surname = surname;
             state.role = role;
@@ -21,6 +22,9 @@ export default {
             window.sessionStorage.setItem("jwtToken", token);
             window.axios.defaults.headers.common['Authorization'] = "Bearer " + token;
             state.loggedIn = true;
+        },
+        storeUsersAdmin(state, users) {
+            state.usersAdmin = users;
         }
     },
     getters: {
@@ -29,46 +33,33 @@ export default {
         name: (state) => state.name,
         surname: (state) => state.surname,
         role: (state) => state.role,
+        users: (state) => state.usersAdmin,
     },
     actions: {
         userinfo(context) {
             return axios.get('/api/auth/me').then((response) => {
-                context.commit('userinfo', response.data.name, response.data.surname, response.data.role);
+                context.commit('userinfo', [response.data.name, response.data.surname, response.data.role]);
                 context.commit('setLinksFor', response.data.role);
                 return true;
-            }).catch((reason) => {
-                console.log(reason.response);
-                return false;
-            });
+            })
         },
         logout(context) {
             return axios.post('/api/auth/logout').finally(() => {
                 context.commit('logout');
                 context.commit('resetLinks');
                 return true;
-            }).catch((reason) => {
-                console.log(reason.response);
-                return false;
-            });
+            })
         },
         login(context, data) {
             return axios.post('/api/auth/login', data).then((response) => {
-                console.log(response);
                 context.commit('storeToken', response.data.access_token);
                 return context.dispatch('userinfo');
-            }).catch((reason) => {
-                console.log(reason.response.data.errors);
-                return reason.response.data.errors;
             })
         },
         register(context, data) {
             return axios.post('/api/auth/register', data).then((response) => {
-                console.log(response);
                 context.commit('storeToken', response.data.access_token);
                 return context.dispatch('userinfo');
-            }).catch((reason) => {
-                console.log(reason.response.data.errors);
-                return reason.response.data.errors;
             })
         },
         autologin(context) {
@@ -78,6 +69,9 @@ export default {
             }
             context.commit('storeToken', token);
             return context.dispatch('userinfo');
+        },
+        getUsersAdmin(context) {
+            axios.get("/api/admin/users").then(response => context.commit('storeUsersAdmin', response.data));
         }
 
     }

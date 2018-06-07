@@ -15,8 +15,7 @@
                 return this.$store.getters.loggedIn;
             }
         },
-        mounted() {
-            console.log('Component mounted.')
+        created() {
         }
     }
 </script>

@@ -2,7 +2,7 @@
     <div id="user-controls">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <router-link v-if="loggedIn" to="/profile" class="nav-link btn btn-link" tag="button">
+                <router-link v-if="loggedIn" :to="this.userType === 'DONOR' ? '/donor/profile' : ''" class="nav-link btn btn-link" tag="button">
                     <fa-icon icon="user-circle"/> {{ name }}
                 </router-link>
                 <router-link v-else to="/login" class="nav-link btn btn-link" tag="button">Login</router-link>
@@ -22,6 +22,9 @@
             },
             loggedIn() {
                 return this.$store.getters.loggedIn;
+            },
+            userType() {
+                return this.$store.getters.role;
             }
         },
         methods: {

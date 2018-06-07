@@ -15,6 +15,7 @@ class BloodRequest extends Model
         'urgency_level',
         'address',
     ];
+    protected $withCount = ["redCellsContainers", "plasmaContainers", "thrombocyteContainers"];
 
     protected $appends = ['thrombocyteContainersLeft'];
 
@@ -33,9 +34,14 @@ class BloodRequest extends Model
         return $this->containers()->where('type', BloodContainerType::THROMBOCYTE);
     }
 
-    public function getThrombocyteContainersLeftAttribute()
+    public function redCellsContainers()
     {
-        return $this->thrombocyte_quantity - count($this->thrombocyteContainers);
+        return $this->containers()->where('type', 'red_cells');
     }
 
+    public function plasmaContainers()
+    {
+        return $this->containers()->where('type', 'plasma');
+    }
+   
 }

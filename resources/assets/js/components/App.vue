@@ -5,6 +5,7 @@
             <router-view></router-view>
         </div>
         <div class="container mt-5" v-else>
+            <errors></errors>
             <div class="col">
                 <router-view></router-view>
             </div>
@@ -19,7 +20,7 @@
                 return this.$route.path === "/" && !this.$store.getters.loggedIn;
             }
         },
-        beforeMount() {
+        beforeCreate() {
             this.$store.dispatch('autologin')
         }
     }

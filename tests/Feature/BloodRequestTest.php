@@ -31,7 +31,8 @@ class BloodRequestTest extends TestCase
         'country' => 'abc',
         'city' => 'asdf',
         'street' => 'asF',
-        'number' => 123
+        'number' => 123,
+        'cnp'=>null
     ];
 
     private $data_rbcq_rh_fail = [
@@ -44,7 +45,8 @@ class BloodRequestTest extends TestCase
         'country' => 'abc',
         'city' => 'asdf',
         'street' => 'asF',
-        'number' => 123
+        'number' => 123,
+        'cnp'=>null
     ];
 
     private $data_rbcq_blood_type_fail = [
@@ -57,7 +59,8 @@ class BloodRequestTest extends TestCase
         'country' => 'abc',
         'city' => 'asdf',
         'street' => 'asF',
-        'number' => 123
+        'number' => 123,
+        'cnp'=>null
     ];
 
     protected function setUp()
@@ -166,6 +169,9 @@ class BloodRequestTest extends TestCase
     {
         factory(BloodRequest::class, 10)->create();
         $this->actingAs(factory(User::class)->create(['role' => UserType::DOCTOR]));
+        $this
+            ->json('get', '/api/blood/request/history')
+            ->assertSuccessful()->assertJsonCount(10);
         $this
             ->json('post', '/api/blood/request', $this->data);
         $this
