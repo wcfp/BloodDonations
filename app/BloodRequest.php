@@ -17,29 +17,31 @@ class BloodRequest extends Model
     ];
     protected $withCount = ["redCellsContainers", "plasmaContainers", "thrombocyteContainers"];
 
+    protected $appends = ['thrombocyteContainersLeft'];
+
     public function doctor()
     {
         return $this->belongsTo(User::class, 'doctor_id');
     }
 
-    public function bloodContainers()
+    public function containers()
     {
         return $this->hasMany(BloodContainer::class);
     }
 
+    public function thrombocyteContainers()
+    {
+        return $this->containers()->where('type', BloodContainerType::THROMBOCYTE);
+    }
+
     public function redCellsContainers()
     {
-        return $this->hasMany(BloodContainer::class)->where('type', 'red_cells');
+        return $this->containers()->where('type', 'red_cells');
     }
 
     public function plasmaContainers()
     {
-        return $this->hasMany(BloodContainer::class)->where('type', 'plasma');
+        return $this->containers()->where('type', 'plasma');
     }
-
-    public function thrombocyteContainers()
-    {
-        return $this->hasMany(BloodContainer::class)->where('type', 'thrombocyte');
-    }
-
+   
 }
