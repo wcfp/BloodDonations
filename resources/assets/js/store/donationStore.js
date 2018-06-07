@@ -17,7 +17,7 @@ export default {
         },
         getAppointments(context) {
             return axios.get('/api/donor/appointments')
-                .then(response => context.commit('createAppointment', response.data))
+                .then(response => context.commit('storeDonations', response.data))
         }
     }
 }

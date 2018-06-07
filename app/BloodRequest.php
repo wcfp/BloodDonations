@@ -17,8 +17,6 @@ class BloodRequest extends Model
     ];
     protected $withCount = ["redCellsContainers", "plasmaContainers", "thrombocyteContainers"];
 
-    protected $appends = ['thrombocyteContainersLeft'];
-
     public function doctor()
     {
         return $this->belongsTo(User::class, 'doctor_id');

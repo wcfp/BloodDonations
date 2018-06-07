@@ -9,12 +9,12 @@
             <th>Change status</th>
         </tr>
 
-        <tr v-for="item in blood_requests">
-            <td>{{item.thrombocyteContainersLeft}}</td>
-            <td>{{item.plasmaContainersLeft}}</td>
-            <td>{{item.redCellsContainersLeft}}</td>
-            <th>{{item.blood_type}}{{item.rh}}</th>
-            <th>{{item.urgency_level}}</th>
+        <tr v-for="request in blood_requests">
+            <td>{{ request.red_cells_containers_count}} / {{request.red_blood_cells_quantity}}</td>
+            <td>{{ request.thrombocyte_containers_count}} / {{request.thrombocyte_quantity}}</td>
+            <td>{{ request.plasma_containers_count}} / {{request.plasma_quantity}}</td>
+            <th>{{request.blood_type}}{{request.rh}}</th>
+            <th>{{request.urgency_level}}</th>
             <th><button class="btn btn-primary">Done</button></th>
         </tr>
     </table>
@@ -24,11 +24,11 @@
     export default {
         computed: {
             blood_requests() {
-                return this.$store.getters.blood_requests;
+                return this.$store.getters.assistantRequests;
             }
         },
         created() {
-            this.$store.dispatch('getRequests');
+            this.$store.dispatch('getAssistantRequests');
         }
     }
 </script>
