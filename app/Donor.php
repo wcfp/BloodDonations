@@ -17,6 +17,7 @@ class Donor extends Model
         'current_address_id',
         'residence_address_id',
         'cnp',
+        'is_allowed',
     ];
 
     public function donations()
