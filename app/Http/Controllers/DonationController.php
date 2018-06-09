@@ -80,5 +80,40 @@ class DonationController extends Controller
         return Donation::where("status", DonationStatus::REQUESTED)->get();
     }
 
+    public function getAllDonations(Request $request)
+    {
+        if (!auth()->check()) {
+            return response("", 401);
+        }
 
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
+
+        return Donation::all();
+    }
+
+    public function updateDonation(Donation $donation, Request $request)
+    {
+        DB::beginTransaction();
+
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
+        $donation->update([
+            $donation->pulse = $request->pulse,
+            $donation->blood_pressure_systolic = $request->blood_pressure_systolic,
+            $donation->blood_pressure_diastolic = $request->blood_pressure_diastolic,
+            $donation->consumed_fat = $request->consumed_fat,
+            $donation->consumed_alcohol = $request->consumed_alcohol,
+            $donation->has_smoked = $request->has_smoked,
+            $donation->sleep_quality = $request->sleep_quality
+        ]);
+
+        DB::commit();
+    }
 }
