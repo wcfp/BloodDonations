@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\BloodRequest;
 use App\Donation;
 use App\DonationStatus;
 use App\Donor;
@@ -12,19 +11,9 @@ use Illuminate\Http\Request;
 
 class DonationController extends Controller
 {
-
     public function createAppointment(Request $request)
     {
-
-        if (!auth()->check()) {
-            return response("", 401);
-        }
-
-
-        if (auth()->user()->role != UserType::DONOR) {
-            return response("", 403);
-        }
-
+        $this->donorAuth();
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $request->date);
 
         if ($date->lessThan(Carbon::today())) {
@@ -58,7 +47,7 @@ class DonationController extends Controller
         return response()->json();
     }
 
-    public function returnHistory(Request $request)
+    public function donorAuth()
     {
         if (!auth()->check()) {
             return response("", 401);
@@ -68,11 +57,23 @@ class DonationController extends Controller
         if (auth()->user()->role != UserType::DONOR) {
             return response("", 403);
         }
+    }
+
+    public function returnHistory(Request $request)
+    {
+        $this->donorAuth();
 
         return Donor::where('user_id', auth()->id())->firstOrFail()->donations;
     }
 
     public function getAllAppointments(Request $request)
+    {
+        $this->assistantAuth();
+
+        return Donation::where("status", DonationStatus::REQUESTED)->get();
+    }
+
+    public function assistantAuth()
     {
         if (!auth()->check()) {
             return response("", 401);
@@ -81,9 +82,33 @@ class DonationController extends Controller
         if (auth()->user()->role != UserType::ASSISTANT) {
             return response("", 403);
         }
-
-        return Donation::where("status", DonationStatus::REQUESTED)->get();
     }
 
+    public function moveToCollected(Donation $donation)
+    {
+        $this->assistantAuth();
+
+        $donation->update(["status" => DonationStatus::COLLECTED]);
+    }
+
+    public function moveToAnalyzed(Donation $donation)
+    {
+        $this->assistantAuth();
+
+        $donation->update(["status" => DonationStatus::ANALYZED]);
+    }
+
+    public function moveToStored(Donation $donation)
+    {
+        $this->assistantAuth();
+
+        $donation->update(["status" => DonationStatus::STORED]);
+        //TODO move to 3 containers
+    }
+
+    public function rejectionReason(Donation $donation)
+    {
+
+    }
 
 }
