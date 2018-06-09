@@ -147,7 +147,7 @@ class DonationController extends Controller
         $donation->donor()->update(["is_allowed" => "false"]);
     }
 
-    public function updateDonation(Donation $donation, Request $request)
+    public function moveToRegistered(Donation $donation, Request $request)
     {
         DB::beginTransaction();
 
@@ -165,7 +165,8 @@ class DonationController extends Controller
             $donation->consumed_fat = $request->consumed_fat,
             $donation->consumed_alcohol = $request->consumed_alcohol,
             $donation->has_smoked = $request->has_smoked,
-            $donation->sleep_quality = $request->sleep_quality
+            $donation->sleep_quality = $request->sleep_quality,
+            $donation->status=DonationStatus::REGISTERED
         ]);
 
         DB::commit();
