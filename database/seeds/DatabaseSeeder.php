@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AddressesSeeder::class);
         $this->call(DonorsSeeder::class);
         $this->call(BloodRequestSeeder::class);
+        $this->call(BloodContainerSeeder::class);
+        $this->call(DonationsSeeder::class);
     }
 }
