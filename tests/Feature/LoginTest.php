@@ -40,7 +40,7 @@ class LoginTest extends TestCase
         $this->assertNotNull(auth()->user());
 
         $this
-            ->json('post', 'api/auth/logout', [], ['Authorization' => "Bearer ". auth()->tokenById($this->user->id)])
+            ->json('post', 'api/auth/logout', [], ['Authorization' => "Bearer " . auth()->tokenById($this->user->id)])
             ->assertJson(['message' => 'Successfully logged out']);
 
         $this->assertNull(auth()->user());
@@ -49,6 +49,6 @@ class LoginTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->user = factory(User::class)->create(['email' => 'test@login . com', 'password' => Hash::make("password")]);
+        $this->user = factory(User::class)->create(['email' => 'test@login.com', 'password' => Hash::make("password")]);
     }
 }

@@ -7,30 +7,28 @@ export default {
             switch (role) {
                 case 'DONOR':
                     state.links = [
-                        {path: '/donate', name: 'Register for a donation'},
-                        {path: '/history', name: 'My history'},
-                        {path: '/editP', name:'Edit profile'}
-                        // {path: '/registerInfo',name: 'Register info'}
+                        {path: '/donor/donate', name: 'Register for a donation'},
+                        {path: '/donor/history', name: 'My history'},
+                        {path: '/donor/editProfile', name: 'Edit profile'}
                     ];
                     return;
                 case 'DOCTOR':
                     state.links = [
-                        {path: '/request', name: 'Request blood'},
-                        {path: '/requests', name: 'Ongoing requests'},
-                        //{path: '/requests/past', name: 'Past requests'},
-                        {path: '/requests/history', name: 'Requests History'}
+                        {path: '/doctor/request', name: 'Request blood'},
+                        {path: '/doctor/requests', name: 'Ongoing requests'},
+                        {path: '/doctor/history', name: 'Completed requests'}
                     ];
                     return;
                 case 'ASSISTANT':
                     state.links = [
-                        {path: '/requests/all', name: 'All blood requests'},
-                        {path: '/donations/all', name: 'All donations'},
-                        {path:'/containers/all', name: 'All blood containers'}
+                        {path: '/assistant/requests', name: 'Blood requests'},
+                        {path: '/assistant/donations', name: 'Donations'},
+                        {path: '/assistant/containers', name: 'Blood containers'}
                     ];
                     return;
                 case 'ADMIN':
                     state.links = [
-                        {path: '/invite', name: 'Invite'},
+                        {path: '/admin/invite', name: 'Invite'},
                     ];
                     return;
             }

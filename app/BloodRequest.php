@@ -15,10 +15,31 @@ class BloodRequest extends Model
         'urgency_level',
         'address',
     ];
+    protected $withCount = ["redCellsContainers", "plasmaContainers", "thrombocyteContainers"];
 
     public function doctor()
     {
         return $this->belongsTo(User::class, 'doctor_id');
     }
 
+    public function containers()
+    {
+        return $this->hasMany(BloodContainer::class);
+    }
+
+    public function thrombocyteContainers()
+    {
+        return $this->containers()->where('type', BloodContainerType::THROMBOCYTE);
+    }
+
+    public function redCellsContainers()
+    {
+        return $this->containers()->where('type', 'red_cells');
+    }
+
+    public function plasmaContainers()
+    {
+        return $this->containers()->where('type', 'plasma');
+    }
+   
 }

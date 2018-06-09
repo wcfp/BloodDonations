@@ -14,7 +14,6 @@ export default {
         getContainers(context) {
             return axios.get('/api/assistant/containers')
                 .then(response => context.commit('storeContainers', response.data))
-                .catch(reason => console.log(reason.response));
         }
     }
 }
