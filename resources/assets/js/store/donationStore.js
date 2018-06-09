@@ -14,6 +14,9 @@ export default {
         createAppointment(context, data) {
             return axios.post('/api/donor/appointments', data)
                 .then(() => context.dispatch('getAppointments'))
+                .catch(reason => {
+                    throw reason.response;
+                });
         },
         getAppointments(context) {
             return axios.get('/api/donor/appointments')
