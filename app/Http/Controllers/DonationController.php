@@ -141,10 +141,10 @@ class DonationController extends Controller
         DB::commit();
     }
 
-    public function rejectionReason(Donation $donation)
+    public function rejectionReason(Donation $donation,Request $request)
     {
         $this->assistantAuth();
-        $donation->update(["status" => DonationStatus::REJECTED]);
+        $donation->update(["status" => DonationStatus::REJECTED, "rejection_reason"=>$request->reason]);
         $donation->donor()->update(["is_allowed" => "false"]);
     }
 
