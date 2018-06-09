@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\BloodContainer;
 use App\BloodContainerType;
+use App\BloodRequest;
 use App\UserType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class BloodContainerController extends Controller
 {
-    public function getAllBloodContainers(){
+    public function getAllBloodContainers()
+    {
         if (!auth()->check()) {
             return response("", 401);
         }
@@ -23,7 +25,8 @@ class BloodContainerController extends Controller
     }
 
 
-    public function assignContainers(Request $request){
+    public function assignContainers(BloodRequest $bloodRequest, Request $request)
+    {
         if (!auth()->check()) {
             return response("", 401);
         }
@@ -32,33 +35,35 @@ class BloodContainerController extends Controller
             return response("", 403);
         }
 
-        try{
-//          TO DO:  filter by blood type and rh too for every blood part and set status done for completed blood requests
-            DB::table('blood_containers')
-                ->where('type','=',BloodContainerType::PLASMA)
+        try {
+            //TODO:  filter by blood type and rh too for every blood part and set status done for completed blood requests
+            BloodContainer::where('type', '=', BloodContainerType::PLASMA)
                 ->whereNull('blood_request_id')
-                ->orderBy('store_date','desc')
-                ->take($request->blood_request["plasma_quantity"]-$request->blood_request["plasma_containers_count"])
-                ->update(['blood_request_id'=>$request->blood_request['id']]);
+                ->whereDate("store_date", '>', Carbon::now()->subYear())
+                ->orderBy('store_date', 'asc')
+                ->take($bloodRequest->plasma_quantity - $bloodRequest->plasmaContainers()->count())
+                ->update(['blood_request_id' => $bloodRequest->id]);
 
-            DB::table('blood_containers')
-                ->where('type','=',BloodContainerType::THROMBOCYTE)
+            BloodContainer::where('type', '=', BloodContainerType::THROMBOCYTE)
                 ->whereNull('blood_request_id')
-                ->orderBy('store_date','desc')
-                ->take($request->blood_request[ 'thrombocyte_quantity']-$request->blood_request["thrombocyte_containers_count"])
-                ->update(['blood_request_id'=>$request->blood_request['id']]);
+                ->whereDate("store_date", '>', Carbon::now()->subDays(5))
+                ->orderBy('store_date', 'asc')
+                ->take($bloodRequest->thrombocyte_quantity - $bloodRequest->thrombocyteContainers()->count())
+                ->update(['blood_request_id' => $bloodRequest->id]);
 
-            DB::table('blood_containers')
-                ->where('type','=',BloodContainerType::RED_CELLS)
+            BloodContainer::where('type', '=', BloodContainerType::RED_CELLS)
                 ->whereNull('blood_request_id')
-                ->orderBy('store_date','desc')
-                ->take($request->blood_request['red_blood_cells_quantity']-$request->blood_request["red_cells_containers_count"])
-                ->update(['blood_request_id'=>$request->blood_request['id']]);
+                ->where('rh', $bloodRequest->rh)
+                ->where("blood_type", $bloodRequest->blood_type)
+                ->whereDate("store_date", '>', Carbon::now()->subDays(42))
+                ->orderBy('store_date', 'asc')
+                ->take($bloodRequest->red_blood_cells_quantity - $bloodRequest->redCellsContainers()->count())
+                ->update(['blood_request_id' => $bloodRequest->id]);
+
+        } catch (\Exception $exception) {
+            return response("$exception", 500);
         }
-        catch (\Exception $exception){
-            return response("$exception",500);
-        }
 
-        return response($request->blood_request,200);
+        return response($request->blood_request, 200);
     }
 }
