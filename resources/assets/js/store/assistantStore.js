@@ -17,7 +17,7 @@ export default {
         },
         assignContainers(context,data){
             return axios.post('/api/assistant/blood/assign',data)
-                .then(response => console.log(response.data) )
+                .then(response =>{console.log(response.data);context.dispatch('getAssistantRequests')}  )
         }
     }
 }

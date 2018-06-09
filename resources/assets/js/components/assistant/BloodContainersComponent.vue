@@ -12,7 +12,7 @@
             <td>{{item.type}}</td>
             <th>{{item.donation.donor.blood_type}}{{item.donation.donor.rh}}</th>
             <th>
-                <p v-if="item.blood_request_id==NULL"><i>Available</i></p>
+                <p v-if="item.blood_request_id==null"><i>Available</i></p>
                 <p v-else><i>Used</i></p>
             </th>
         </tr>
