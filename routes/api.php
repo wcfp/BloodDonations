@@ -23,6 +23,7 @@ Route::get('blood/requests', 'BloodRequestController@getAllBloodRequests');
 Route::get('blood/requests/{bloodRequest}', 'BloodRequestController@getBloodRequestAssistant');
 Route::patch('blood/requests/{bloodRequest}/status', 'BloodRequestController@changeBloodRequestStatus');
 Route::patch('assistant/donor/{donor}','DonorController@updateProfileInfo');
+Route::post('assistant/blood/assign','BloodContainerController@assignContainers');
 
 
 

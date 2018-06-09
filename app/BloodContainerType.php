@@ -11,7 +11,7 @@ namespace App;
 
 interface BloodContainerType
 {
-    const THROMBOCYTE = 'thrombocyte';
-    const PLASMA = 'plasma';
-    const RED_CELLS = 'red cells';
+    const THROMBOCYTE = 'Thrombocytes';
+    const PLASMA = 'Plasma';
+    const RED_CELLS = 'Red blood cells';
 }
