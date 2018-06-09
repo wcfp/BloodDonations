@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\BloodContainer;
+use App\BloodContainerType;
 use App\Donation;
 use App\DonationStatus;
 use App\Donor;
 use App\UserType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DonationController extends Controller
 {
@@ -101,9 +104,26 @@ class DonationController extends Controller
     public function moveToStored(Donation $donation)
     {
         $this->assistantAuth();
-
+        DB::beginTransaction();
         $donation->update(["status" => DonationStatus::STORED]);
-        //TODO move to 3 containers
+        $bloodContainer = new BloodContainer();
+        $bloodContainer->store_date = Carbon::now();
+        $bloodContainer->donation_id = $donation->id;
+        $bloodContainer->type = BloodContainerType::THROMBOCYTE;
+        $bloodContainer->save;
+
+        $bloodContainer = new BloodContainer();
+        $bloodContainer->store_date = Carbon::now();
+        $bloodContainer->donation_id = $donation->id;
+        $bloodContainer->type = BloodContainerType::PLASMA;
+        $bloodContainer->save();
+
+        $bloodContainer = new BloodContainer();
+        $bloodContainer->store_date = Carbon::now();
+        $bloodContainer->donation_id = $donation->id;
+        $bloodContainer->type = BloodContainerType::RED_CELLS;
+        $bloodContainer->save();
+        DB::commit();
     }
 
     public function rejectionReason(Donation $donation)

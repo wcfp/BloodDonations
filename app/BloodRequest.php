@@ -14,6 +14,7 @@ class BloodRequest extends Model
         'rh',
         'urgency_level',
         'address',
+
     ];
     protected $withCount = ["redCellsContainers", "plasmaContainers", "thrombocyteContainers"];
 
