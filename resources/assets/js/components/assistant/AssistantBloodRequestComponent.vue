@@ -15,7 +15,10 @@
             <td>{{ request.plasma_containers_count}} / {{request.plasma_quantity}}</td>
             <th>{{request.blood_type}}{{request.rh}}</th>
             <th>{{request.urgency_level}}</th>
-            <th><button class="btn btn-primary">Done</button></th>
+            <th>
+                <button v-if="request.status=='requested'" class="btn btn-primary"  @click="assignContainers(request)">Assign Containers</button>
+                <p v-else><i>Done</i></p>
+            </th>
         </tr>
     </table>
 </template>
@@ -29,6 +32,11 @@
         },
         created() {
             this.$store.dispatch('getAssistantRequests');
+        },
+        methods:{
+            assignContainers($bloodRequest){
+                this.$store.dispatch('assignContainers',{'blood_request':$bloodRequest});
+            }
         }
     }
 </script>

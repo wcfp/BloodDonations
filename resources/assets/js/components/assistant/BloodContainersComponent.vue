@@ -3,15 +3,18 @@
         <tr>
             <th>Store date</th>
             <th>Type</th>
-            <th>Quantity(ml)</th>
             <th>Blood type</th>
+            <th>Status</th>
         </tr>
 
         <tr v-for="item in containers">
             <td>{{ item.store_date}}</td>
             <td>{{item.type}}</td>
-            <td>{{item.quantity}}</td>
             <th>{{item.donation.donor.blood_type}}{{item.donation.donor.rh}}</th>
+            <th>
+                <p v-if="item.blood_request_id==NULL"><i>Available</i></p>
+                <p v-else><i>Used</i></p>
+            </th>
         </tr>
     </table>
 </template>
