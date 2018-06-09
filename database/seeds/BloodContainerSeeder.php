@@ -11,6 +11,6 @@ class BloodContainerSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\BloodContainer::class, 20)->create();
+        factory(App\BloodContainer::class, 60)->create();
     }
 }

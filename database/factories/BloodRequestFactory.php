@@ -16,8 +16,8 @@ $factory->define(BloodRequest::class, function (Faker $faker) {
         'rh'=>$faker->randomElement(['+', '-']),
         'status' => \App\BloodRequestStatus::REQUESTED,
         'status_date' => \Carbon\Carbon::now(),
-        'thrombocyte_quantity'=> $faker->numberBetween(1, 20),
-        'plasma_quantity'=> $faker->numberBetween(1, 20),
-        'red_blood_cells_quantity'=> $faker->numberBetween(1, 20),
+        'thrombocyte_quantity'=> $faker->numberBetween(1, 7),
+        'plasma_quantity'=> $faker->numberBetween(1, 7),
+        'red_blood_cells_quantity'=> $faker->numberBetween(1, 7),
     ];
 });

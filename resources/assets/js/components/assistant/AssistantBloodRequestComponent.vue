@@ -1,9 +1,9 @@
 <template>
     <table class="table table-light">
         <tr>
+            <th>Red Cells Containers Left</th>
             <th>Thrombocyte Containers Left</th>
             <th>Plasma Containers Left</th>
-            <th>Red Cells Containers Left</th>
             <th>Blood type</th>
             <th>Urgency level</th>
             <th>Change status</th>

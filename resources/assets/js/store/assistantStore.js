@@ -28,6 +28,7 @@ export default {
         getDonations(context) {
             return axios.get('/api/assistant/donations')
                 .then(response => context.commit('storeDonations', response.data))
+                .then(() =>context.dispatch('getAssistantRequests'))
         }
 
     }
