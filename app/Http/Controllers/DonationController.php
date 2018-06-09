@@ -95,7 +95,7 @@ class DonationController extends Controller
             return response("", 403);
         }
 
-        return Donation::all();
+        return Donation::with("donor.user")->get();
     }
 
     public function updateDonation(Donation $donation, Request $request)
