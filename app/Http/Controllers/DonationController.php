@@ -108,7 +108,9 @@ class DonationController extends Controller
 
     public function rejectionReason(Donation $donation)
     {
-
+        $this->assistantAuth();
+        $donation->update(["status" => DonationStatus::REJECTED]);
+        $donation->donor()->update(["is_allowed" => "false"]);
     }
 
 }
