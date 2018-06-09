@@ -87,10 +87,11 @@ class DonationController extends Controller
         }
     }
 
-    public function moveToCollected(Donation $donation)
+    public function moveToCollected(Donation $donation,Request $request)
     {
         $this->assistantAuth();
 
+        $donation->donor()->update(['rh' => $request->rh,'blood_type'=>$request->blood_type]);
         $donation->update(["status" => DonationStatus::COLLECTED]);
     }
 
