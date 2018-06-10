@@ -145,7 +145,7 @@ class DonationController extends Controller
     {
         $this->assistantAuth();
         $donation->update(["status" => DonationStatus::REJECTED, "rejection_reason"=>$request->reason]);
-        $donation->donor()->update(["is_allowed" => "false"]);
+        $donation->donor()->update(["is_allowed" => false]);
     }
 
     public function moveToRegistered(Donation $donation, Request $request)

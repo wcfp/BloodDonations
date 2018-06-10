@@ -29,6 +29,11 @@ export default {
             return axios.get('/api/assistant/donations')
                 .then(response => context.commit('storeDonations', response.data))
                 .then(() =>context.dispatch('getAssistantRequests'))
+        },
+
+        updateDonation(context, data)
+        {
+            return axios.post('/api/assistant/donation')
         }
 
     }

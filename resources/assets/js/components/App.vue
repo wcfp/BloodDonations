@@ -7,6 +7,7 @@
         <div class="container mt-5" v-else>
             <errors></errors>
             <div class="col">
+                <modals-container></modals-container>
                 <router-view></router-view>
             </div>
         </div>
