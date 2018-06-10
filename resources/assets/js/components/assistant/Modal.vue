@@ -1,7 +1,8 @@
 <template>
     <modal name="example"
            :width="300"
-           :height="300"
+           :height="300";
+           max-height:100%;
            @before-open="beforeOpen"
            @before-close="beforeClose">
         <b>{{time}}</b>

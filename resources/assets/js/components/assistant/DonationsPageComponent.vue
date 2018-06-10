@@ -19,8 +19,10 @@
                 <td>{{donation.appointment_date}}</td>
                 <td>{{donation.status}}</td>
                 <td>{{donation.status_date}}</td>
-                <td>Move to next stage</td>
-                <td>Reject</td>
+                <td>
+                <button type="button" class="btn btn-outline-primary btn-block" @click="next(donation)">Next Stage</button></td>
+                <td><button type="button" class="btn btn-outline-danger btn-block" @click="reject(donation)">Reject</button></td>
+
 
             </tr>
             </tbody>
@@ -29,6 +31,9 @@
 </template>
 
 <script>
+    import RejectionModal from "./RejectionModal";
+    import FillDonationDataComponent from "./FillDonationDataComponent";
+
     export default {
         computed: {
             donations() {
@@ -38,10 +43,22 @@
 
         created() {
             this.$store.dispatch('getDonations');
+        },
+        methods: {
+
+
+            reject(donation){
+                this.$modal.show(RejectionModal, {
+                    donation: donation
+                });
+            },
+            next(donation){
+                this.$modal.show(FillDonationDataComponent, {
+                    donation: donation
+                }, {
+                    height: 'auto'
+                });
+            }
         }
     }
 </script>
-
-<style scoped>
-
-</style>
