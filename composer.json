@@ -53,9 +53,17 @@
             "@php artisan package:discover"
         ],
         "post-install-cmd": [
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:models -N",
-            "@php artisan ide-helper:eloquent"
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
+        ],
+        "deploy": [
+            "@php -r \"rename('.env.example', '.env');\"",
+            "@composer install",
+            "@php artisan key:generate",
+            "@php artisan jwt:secret",
+            "@php artisan route:cache",
+            "@php artisan config:cache",
+            "@npm install",
+            "@npm run prod"
         ]
     },
     "config": {
