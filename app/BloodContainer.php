@@ -8,7 +8,6 @@ class BloodContainer extends Model
 {
     protected $fillable=[
         "type",
-        "quantity",
         "store_date",
         "blood_request_id",
         "donation_id",

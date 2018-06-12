@@ -16,7 +16,6 @@ class CreateBloodContainersTable extends Migration
         Schema::create('blood_containers', function (Blueprint $table) {
             $table->increments('id');
             $table->string("type");
-            $table->integer("quantity");
             $table->date("store_date");
             $table->integer("blood_request_id")->unsigned()->nullable();
             $table->integer("donation_id")->unsigned();

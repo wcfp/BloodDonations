@@ -109,6 +109,7 @@ class BloodRequestController extends Controller
         return $bloodRequest;
     }
 
+
     public function changeBloodRequestStatus(BloodRequest $bloodRequest, Request $request)
     {
         if (!auth()->check()) {
