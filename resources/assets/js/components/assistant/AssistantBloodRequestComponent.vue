@@ -41,7 +41,7 @@
         methods: {
             assignContainers(bloodRequest) {
                 return axios.post('/api/assistant/request/' + bloodRequest.id + '/fulfill').then(response => {
-                    console.log(response.data)
+                    this.$store.dispatch('getAssistantRequests')
                 })
             }
         }
