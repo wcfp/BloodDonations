@@ -19,7 +19,7 @@ export default {
     actions: {
         createRequest(context, data) {
             return axios.post('/api/blood/request', data)
-                .then(() => context.dispatch('getRequests'))
+                .then(() => context.dispatch('getOngoingRequests'))
         },
         getRequests(context) {
             return axios.get('/api/blood/request/history')

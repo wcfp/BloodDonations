@@ -41,8 +41,7 @@
         },
         created() {
             this.$store.dispatch('getRequests');
-        },
-        methods: {}
+        }
     }
 </script>
 

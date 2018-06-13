@@ -29,7 +29,7 @@
             donations() {
                 return this.$store.getters.donations;
             }
-        },
+        }
     }
 </script>
 

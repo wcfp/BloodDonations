@@ -13,10 +13,7 @@ export default {
     actions: {
         createAppointment(context, data) {
             return axios.post('/api/donor/appointments', data)
-                .then(() => context.dispatch('getAppointments'))
-                .catch(reason => {
-                    throw reason.response;
-                });
+                .then(() => context.dispatch('getAppointments'));
         },
         getAppointments(context) {
             return axios.get('/api/donor/appointments')

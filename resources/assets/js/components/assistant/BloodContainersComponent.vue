@@ -1,12 +1,14 @@
 <template>
     <table class="table table-light">
+        <thead>
         <tr>
             <th>Store date</th>
             <th>Type</th>
             <th>Blood type</th>
             <th>Status</th>
         </tr>
-
+        </thead>
+        <tbody>
         <tr v-for="item in containers">
             <td>{{ item.store_date}}</td>
             <td>{{item.type}}</td>
@@ -16,6 +18,7 @@
                 <p v-else><i>Used</i></p>
             </th>
         </tr>
+        </tbody>
     </table>
 </template>
 

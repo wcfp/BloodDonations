@@ -53,6 +53,8 @@
 </template>
 
 <script>
+    import initDataTable from "../../dataTableVue"
+
     export default {
         data() {
             return {}
@@ -66,13 +68,18 @@
             }
         },
         created() {
-            if (this.userType === 'DOCTOR') {
-                this.$router.replace('doctor/requests');
-            }
-            if (this.userType === 'ADMIN') {
-                this.$store.dispatch("getUsersAdmin");
-            }
-        }
+            this.$store.dispatch("userinfo").then(() => {
+                if (this.userType === 'DOCTOR') {
+                    this.$router.replace('doctor/requests');
+                }
+
+                if (this.userType === 'ADMIN') {
+                    this.$store.dispatch("getUsersAdmin").then(() => {
+                        initDataTable(".table");
+                    });
+                }
+            });
+        },
     }
 </script>
 

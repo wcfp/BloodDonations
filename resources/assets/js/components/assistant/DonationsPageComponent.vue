@@ -20,8 +20,11 @@
                 <td>{{donation.status}}</td>
                 <td>{{donation.status_date}}</td>
                 <td>
-                <button type="button" class="btn btn-outline-primary btn-block" @click="next(donation)">Next Stage</button></td>
-                <td><button type="button" class="btn btn-outline-danger btn-block" @click="reject(donation)">Reject</button></td>
+                    <button type="button" class="btn btn-outline-primary btn-block" @click="next(donation)">Next Stage</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger btn-block" @click="reject(donation)">Reject</button>
+                </td>
 
 
             </tr>
@@ -45,14 +48,12 @@
             this.$store.dispatch('getDonations');
         },
         methods: {
-
-
-            reject(donation){
+            reject(donation) {
                 this.$modal.show(RejectionModal, {
                     donation: donation
                 });
             },
-            next(donation){
+            next(donation) {
                 this.$modal.show(FillDonationDataComponent, {
                     donation: donation
                 }, {
