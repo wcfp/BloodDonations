@@ -7,10 +7,14 @@ use App\BloodContainerType;
 use App\Donation;
 use App\DonationStatus;
 use App\Donor;
+use App\Mail\RejectionMail;
 use App\UserType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+
+//use Mail;
 
 class DonationController extends Controller
 {
@@ -146,6 +150,12 @@ class DonationController extends Controller
         $this->assistantAuth();
         $donation->update(["status" => DonationStatus::REJECTED, "rejection_reason"=>$request->reason]);
         $donation->donor()->update(["is_allowed" => false]);
+        $this->sendRejectionMail($donation);
+    }
+
+    public function sendRejectionMail(Donation $donation)
+    {
+        Mail::to($donation->donor()->email)->send(new RejectionMail($donation->rejection_reason));
     }
 
     public function moveToRegistered(Donation $donation, Request $request)
