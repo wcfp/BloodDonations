@@ -91,11 +91,11 @@ class DonationController extends Controller
         }
     }
 
-    public function moveToCollected(Donation $donation,Request $request)
+    public function moveToCollected(Donation $donation, Request $request)
     {
         $this->assistantAuth();
 
-        $donation->donor()->update(['rh' => $request->rh,'blood_type'=>$request->blood_type]);
+        $donation->donor()->update(['rh' => $request->rh, 'blood_type' => $request->blood_type]);
         $donation->update(["status" => DonationStatus::COLLECTED]);
     }
 
@@ -112,7 +112,7 @@ class DonationController extends Controller
 
         return Donation::with("donor.user")->get();
     }
-  
+
     public function moveToAnalyzed(Donation $donation)
     {
         $this->assistantAuth();
@@ -145,17 +145,17 @@ class DonationController extends Controller
         DB::commit();
     }
 
-    public function rejectionReason(Donation $donation,Request $request)
+    public function rejectionReason(Donation $donation, Request $request)
     {
         $this->assistantAuth();
-        $donation->update(["status" => DonationStatus::REJECTED, "rejection_reason"=>$request->reason]);
+        $donation->update(["status" => DonationStatus::REJECTED, "rejection_reason" => $request->reason]);
         $donation->donor()->update(["is_allowed" => false]);
         $this->sendRejectionMail($donation);
     }
 
     public function sendRejectionMail(Donation $donation)
     {
-        Mail::to($donation->donor()->email)->send(new RejectionMail($donation->rejection_reason));
+        Mail::to($donation->donor())->send(new RejectionMail($donation->rejection_reason));
     }
 
     public function moveToRegistered(Donation $donation, Request $request)
@@ -177,7 +177,7 @@ class DonationController extends Controller
             $donation->consumed_alcohol = $request->consumed_alcohol,
             $donation->has_smoked = $request->has_smoked,
             $donation->sleep_quality = $request->sleep_quality,
-            $donation->status=DonationStatus::REGISTERED
+            $donation->status = DonationStatus::REGISTERED
         ]);
 
         DB::commit();

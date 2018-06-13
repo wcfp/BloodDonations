@@ -11,7 +11,7 @@ class RejectionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $rejectionReason;
+    protected $rejectionReason;
     /**
      * Create a new message instance.
      *
