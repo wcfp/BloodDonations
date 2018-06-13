@@ -14,6 +14,7 @@ Route::post('donor/profile', 'DonorController@store');
 Route::get('donor/profile','DonorController@getProfileInfo');
 Route::post('donor/appointments', 'DonationController@createAppointment');
 Route::get('donor/appointments', 'DonationController@returnHistory');
+//Route::post('donor/send/rejection','DonationController@sendRejectionMail');
 
 
 //assistant routes
