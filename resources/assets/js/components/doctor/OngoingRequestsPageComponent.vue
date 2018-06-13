@@ -5,6 +5,7 @@
 
             <thead>
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">Requested on</th>
                 <th scope="col">Urgency</th>
                 <th scope="col">Red cells</th>
@@ -15,6 +16,7 @@
             </thead>
             <tbody>
             <tr v-for="request in ongoingRequests" :key="request.id">
+                <td>{{request.identifier}}</td>
                 <td>{{request.created_at}}</td>
                 <td>{{request.urgency_level}}</td>
                 <td>{{ request.red_cells_containers_count}} / {{request.red_blood_cells_quantity}}</td>

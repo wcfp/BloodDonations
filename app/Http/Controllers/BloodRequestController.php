@@ -67,7 +67,9 @@ class BloodRequestController extends Controller
             return response("", 403);
         }
 
-        return BloodRequest::all();
+        return BloodRequest::with(["redCellsContainers", "plasmaContainers", "thrombocyteContainers"])->orderBy("status")->get()->sortBy(function ($bloodRequest) {
+            return ["high" => 1, "medium" => 2, "low" => 3][$bloodRequest->urgency_level];
+        })->sortByDesc("status")->values();
     }
 
     public function getMyBloodRequests()

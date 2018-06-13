@@ -5,6 +5,7 @@
 
             <thead>
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">Donor</th>
                 <th scope="col">Appointment date</th>
                 <th scope="col">Status</th>
@@ -15,6 +16,7 @@
             </thead>
             <tbody>
             <tr v-for="donation in donations" :key="donation.id">
+                <td>{{donation.identifier}}</td>
                 <td>{{donation.donor.user.name}} {{donation.donor.user.surname}}</td>
                 <td>{{donation.appointment_date}}</td>
                 <td>{{donation.status}}</td>

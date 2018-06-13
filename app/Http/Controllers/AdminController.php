@@ -17,7 +17,7 @@ class AdminController extends Controller
 
     public function users()
     {
-        return User::all();
+        return User::orderBy("role")->get();
     }
 
 }

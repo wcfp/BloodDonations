@@ -5,7 +5,7 @@ use App\BloodRequest;
 
 $factory->define(BloodRequest::class, function (Faker $faker) {
     return [
-        'urgency_level' => $faker->randomElement(['normal', 'high', 'critical']),
+        'urgency_level' => $faker->randomElement(['low', 'medium', 'high']),
         'doctor_id' => function () {
             return factory(App\User::class)->create(['role' => \App\UserType::DOCTOR])->id;
         },

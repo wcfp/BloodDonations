@@ -45,7 +45,7 @@
             <tr v-for="user in userList">
                 <td>{{user.email}}</td>
                 <td>{{user.surname}} {{user.name}}</td>
-                <td>{{user.role}}</td>
+                <td>{{user.role === "ASSISTANT" ? "MEDICAL STAFF": user.role}}</td>
             </tr>
             </tbody>
         </table>

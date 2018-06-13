@@ -19,10 +19,15 @@ class Donation extends Model
         'rejection_reason'
     ];
 
+    protected $appends = ["identifier"];
 
     public function donor()
     {
         return $this->belongsTo(Donor::class);
     }
 
+    public function getIdentifierAttribute()
+    {
+        return "D" . $this->donor->user->name[0] . $this->donor->user->surname[0] . (10000 + $this->id);
+    }
 }

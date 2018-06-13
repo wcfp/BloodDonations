@@ -41,7 +41,13 @@ export default {
                 context.commit('userinfo', [response.data.name, response.data.surname, response.data.role]);
                 context.commit('setLinksFor', response.data.role);
                 return true;
-            })
+            }).catch(reason => {
+                if (reason.response.status === 401) {
+                    context.commit('logout');
+                    context.commit('resetLinks');
+                    this.$router.push("/login");
+                }
+            });
         },
         logout(context) {
             return axios.post('/api/auth/logout').finally(() => {

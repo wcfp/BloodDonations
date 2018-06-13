@@ -4,6 +4,7 @@
         <table class="table table-hover">
             <thead>
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">Appointment Date</th>
                 <th scope="col">Status</th>
                 <th scope="col">Updated At</th>
@@ -11,6 +12,7 @@
             </thead>
             <tbody>
             <tr v-for="donation in donations">
+                <td>{{donation.identifier}}</td>
                 <td>{{donation.appointment_date}}</td>
                 <td>{{donation.status.toUpperCase()}}</td>
                 <td>{{donation.status_date}}</td>

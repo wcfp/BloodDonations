@@ -12,7 +12,7 @@
                         <label for="user_type" class="sr-only">User type</label>
                         <select id="user_type" class="custom-select" v-model="userType" required>
                             <option value="" selected>Select user type</option>
-                            <option value="ASSISTANT">Assistant</option>
+                            <option value="ASSISTANT">Medical staff</option>
                             <option value="DOCTOR">Doctor</option>
                         </select>
                     </div>

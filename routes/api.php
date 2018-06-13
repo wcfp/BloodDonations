@@ -24,7 +24,7 @@ Route::get('blood/requests/{bloodRequest}', 'BloodRequestController@getBloodRequ
 Route::patch('blood/requests/{bloodRequest}/status', 'BloodRequestController@changeBloodRequestStatus');
 Route::get('assistant/donations','DonationController@getAllDonations');
 Route::patch('assistant/donor/{donor}','DonorController@updateProfileInfo');
-Route::post('assistant/blood/assign','BloodContainerController@assignContainers');
+Route::post('assistant/request/{bloodRequest}/fulfill','BloodContainerController@assignContainers');
 //blood journey routes
 Route::post('assistant/donation/{donation}/register','DonationController@moveToRegistered');
 Route::post('assistant/donation/{donation}/collect','DonationController@moveToCollected');
