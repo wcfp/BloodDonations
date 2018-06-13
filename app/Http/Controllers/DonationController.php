@@ -11,10 +11,10 @@ use App\Mail\RejectionMail;
 use App\UserType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
-//use Mail;
 
 class DonationController extends Controller
 {
@@ -151,11 +151,15 @@ class DonationController extends Controller
         $donation->update(["status" => DonationStatus::REJECTED, "rejection_reason" => $request->reason]);
         $donation->donor()->update(["is_allowed" => false]);
         $this->sendRejectionMail($donation);
+
     }
 
-    public function sendRejectionMail(Donation $donation)
+    /**
+     * @param Donation $donatio
+     */
+    public function sendRejectionMail(Donation $donatio)
     {
-        Mail::to($donation->donor())->send(new RejectionMail($donation->rejection_reason));
+        Mail::to("s.oanastef@gmail.com")->send(new RejectionMail($donatio));
     }
 
     public function moveToRegistered(Donation $donation, Request $request)
