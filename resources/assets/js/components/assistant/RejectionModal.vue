@@ -19,8 +19,9 @@
         props: ['donation'],
         methods: {
             sendReason() {
-                //console.log("b");
-                axios.post('/api/assistant/donation/' + this.donation.id + '/reject', {reason: this.reason})
+                axios.post('/api/assistant/donation/' + this.donation.id + '/reject', {reason: this.reason}).then(() => {
+                    this.$store.dispatch('getDonations').then(() => this.$emit('close'))
+                })
             }
 
         },

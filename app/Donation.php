@@ -19,7 +19,7 @@ class Donation extends Model
         'rejection_reason'
     ];
 
-    protected $appends = ["identifier"];
+    protected $appends = ["identifier", "stageMessage", "nextStagePath"];
 
     public function donor()
     {
@@ -29,5 +29,27 @@ class Donation extends Model
     public function getIdentifierAttribute()
     {
         return "D" . $this->donor->user->name[0] . $this->donor->user->surname[0] . (10000 + $this->id);
+    }
+
+    public function getStageMessageAttribute() {
+        return [
+            DonationStatus::REQUESTED => "Register",
+            DonationStatus::REGISTERED => "Collect",
+            DonationStatus::COLLECTED => "Analyze",
+            DonationStatus::ANALYZED => "Store",
+            DonationStatus::STORED => "",
+            DonationStatus::REJECTED => "",
+        ][$this->status];
+    }
+
+    public function getNextStagePathAttribute() {
+        return [
+            DonationStatus::REQUESTED => "/api/assistant/donation/{$this->id}/register",
+            DonationStatus::REGISTERED => "/api/assistant/donation/{$this->id}/collect",
+            DonationStatus::COLLECTED => "/api/assistant/donation/{$this->id}/analyze",
+            DonationStatus::ANALYZED => "/api/assistant/donation/{$this->id}/store",
+            DonationStatus::STORED => "",
+            DonationStatus::REJECTED => "",
+        ][$this->status];
     }
 }

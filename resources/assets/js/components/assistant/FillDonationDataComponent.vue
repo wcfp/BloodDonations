@@ -51,7 +51,7 @@
         props: ['donation'],
         methods: {
             update() {
-                this.$store.dispatch('updateDonation', {
+                axios.post(this.donation.nextStagePath, {
                     pulse: this.pulse,
                     blood_pressure_systolic: this.blood_pressure_systolic,
                     blood_pressure_diastolic: this.blood_pressure_diastolic,
@@ -59,8 +59,11 @@
                     consumed_alcohol: this.consumed_alcohol,
                     has_smoked: this.has_smoked,
                     sleep_quality: this.sleep_quality,
-                })
-                    .then(response => this.$router.push(''));
+                }).then(() => {
+                    this.$store.dispatch("getDonations").then(() => {
+                        this.$emit('close')
+                    })
+                });
             }
         }
     }

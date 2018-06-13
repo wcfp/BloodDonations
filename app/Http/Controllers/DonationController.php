@@ -11,7 +11,6 @@ use App\Mail\RejectionMail;
 use App\UserType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -20,7 +19,15 @@ class DonationController extends Controller
 {
     public function createAppointment(Request $request)
     {
-        $this->donorAuth();
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+
+        if (auth()->user()->role != UserType::DONOR) {
+            return response("", 403);
+        }
+
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $request->date);
 
         if ($date->lessThan(Carbon::today())) {
@@ -42,7 +49,7 @@ class DonationController extends Controller
             }
         }
 
-        $donation = new Donation;
+        $donation = new Donation();
 
         $donation->status = DonationStatus::REQUESTED;
         $donation->status_date = Carbon::now();
@@ -54,7 +61,7 @@ class DonationController extends Controller
         return response()->json();
     }
 
-    public function donorAuth()
+    public function returnHistory(Request $request)
     {
         if (!auth()->check()) {
             return response("", 401);
@@ -64,23 +71,11 @@ class DonationController extends Controller
         if (auth()->user()->role != UserType::DONOR) {
             return response("", 403);
         }
-    }
-
-    public function returnHistory(Request $request)
-    {
-        $this->donorAuth();
 
         return Donor::where('user_id', auth()->id())->firstOrFail()->donations;
     }
 
     public function getAllAppointments(Request $request)
-    {
-        $this->assistantAuth();
-
-        return Donation::where("status", DonationStatus::REQUESTED)->get();
-    }
-
-    public function assistantAuth()
     {
         if (!auth()->check()) {
             return response("", 401);
@@ -89,14 +84,25 @@ class DonationController extends Controller
         if (auth()->user()->role != UserType::ASSISTANT) {
             return response("", 403);
         }
+
+        return Donation::where("status", DonationStatus::REQUESTED)->get();
     }
 
     public function moveToCollected(Donation $donation, Request $request)
     {
-        $this->assistantAuth();
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
 
         $donation->donor()->update(['rh' => $request->rh, 'blood_type' => $request->blood_type]);
-        $donation->update(["status" => DonationStatus::COLLECTED]);
+        $donation->update([
+            "status" => DonationStatus::COLLECTED,
+            "status_date" => Carbon::now()
+        ]);
     }
 
 
@@ -113,53 +119,87 @@ class DonationController extends Controller
         return Donation::with("donor.user")->get();
     }
 
-    public function moveToAnalyzed(Donation $donation)
+    public function moveToAnalyzed(Donation $donation, Request $request)
     {
-        $this->assistantAuth();
+        if (!auth()->check()) {
+            return response("", 401);
+        }
 
-        $donation->update(["status" => DonationStatus::ANALYZED]);
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
+
+        $donation->update([
+            "status" => DonationStatus::ANALYZED,
+            "status_date" => Carbon::now()
+        ]);
+
+        $donation->donor()->update([
+            "rh" => $request->rh,
+            "blood_type" => $request->blood_type
+        ]);
     }
 
     public function moveToStored(Donation $donation)
     {
-        $this->assistantAuth();
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
         DB::beginTransaction();
-        $donation->update(["status" => DonationStatus::STORED]);
+        $donation->update([
+            "status" => DonationStatus::STORED,
+            "status_date" => Carbon::now(),
+        ]);
         $bloodContainer = new BloodContainer();
         $bloodContainer->store_date = Carbon::now();
         $bloodContainer->donation_id = $donation->id;
         $bloodContainer->type = BloodContainerType::THROMBOCYTE;
+        $bloodContainer->quantity = 1;
         $bloodContainer->save;
 
         $bloodContainer = new BloodContainer();
         $bloodContainer->store_date = Carbon::now();
         $bloodContainer->donation_id = $donation->id;
         $bloodContainer->type = BloodContainerType::PLASMA;
+        $bloodContainer->quantity = 1;
         $bloodContainer->save();
 
         $bloodContainer = new BloodContainer();
         $bloodContainer->store_date = Carbon::now();
         $bloodContainer->donation_id = $donation->id;
         $bloodContainer->type = BloodContainerType::RED_CELLS;
+        $bloodContainer->quantity = 1;
         $bloodContainer->save();
         DB::commit();
     }
 
     public function rejectionReason(Donation $donation, Request $request)
     {
-        $this->assistantAuth();
-        $donation->update(["status" => DonationStatus::REJECTED, "rejection_reason" => $request->reason]);
+        if (!auth()->check()) {
+            return response("", 401);
+        }
+
+        if (auth()->user()->role != UserType::ASSISTANT) {
+            return response("", 403);
+        }
+        $donation->update([
+            "status" => DonationStatus::REJECTED,
+            "rejection_reason" => $request->reason,
+            "status_date" => Carbon::now()
+        ]);
         $donation->donor()->update(["is_allowed" => false]);
         $this->sendRejectionMail($donation);
 
     }
 
-    /**
-     * @param Donation $donatio
-     */
-    public function sendRejectionMail(Donation $donatio)
+
+    public function sendRejectionMail(Donation $donation)
     {
-        Mail::to("s.oanastef@gmail.com")->send(new RejectionMail($donatio));
+        Mail::to($donation->donor()->user->email)->send(new RejectionMail($donation));
     }
 
     public function moveToRegistered(Donation $donation, Request $request)
@@ -174,14 +214,16 @@ class DonationController extends Controller
             return response("", 403);
         }
         $donation->update([
-            $donation->pulse = $request->pulse,
-            $donation->blood_pressure_systolic = $request->blood_pressure_systolic,
-            $donation->blood_pressure_diastolic = $request->blood_pressure_diastolic,
-            $donation->consumed_fat = $request->consumed_fat,
-            $donation->consumed_alcohol = $request->consumed_alcohol,
-            $donation->has_smoked = $request->has_smoked,
-            $donation->sleep_quality = $request->sleep_quality,
-            $donation->status = DonationStatus::REGISTERED
+            "pulse" => $request->pulse,
+            "blood_pressure_systolic" => $request->blood_pressure_systolic,
+            "blood_pressure_diastolic" => $request->blood_pressure_diastolic,
+            "consumed_fat" => $request->consumed_fat,
+            "consumed_alcohol" => $request->consumed_alcohol,
+            "has_smoked" => $request->has_smoked,
+            "sleep_quality" => $request->sleep_quality,
+            "status" => DonationStatus::REGISTERED,
+            "status_date" => Carbon::now(),
+
         ]);
 
         DB::commit();

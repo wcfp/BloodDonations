@@ -24,9 +24,9 @@ class BloodContainerController extends Controller
 
         return BloodContainer::with("donation.donor")->orderBy("store_date")->get()->sortByDesc(function ($container) {
             if ($container->blood_request_id !== null) {
-                return 0;
-            } else if ($container->expired) {
                 return 1;
+            } else if ($container->expired) {
+                return 0;
             }
             return 2;
         })->values();

@@ -3,6 +3,7 @@
         <thead>
         <tr>
             <th>#</th>
+            <th>#Donation</th>
             <th>Store date</th>
             <th>Type</th>
             <th>Blood type</th>
@@ -12,6 +13,7 @@
         <tbody>
         <tr v-for="item in containers">
             <td>{{item.identifier}}</td>
+            <td>{{item.donation.identifier}}</td>
             <td>{{ item.store_date}}</td>
             <td>{{item.type}}</td>
             <th>{{item.donation.donor.blood_type}}{{item.donation.donor.rh}}</th>

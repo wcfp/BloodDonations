@@ -9,7 +9,6 @@
                 <th scope="col">Donor</th>
                 <th scope="col">Appointment date</th>
                 <th scope="col">Status</th>
-                <th scope="col">Status date</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
             </tr>
@@ -19,13 +18,12 @@
                 <td>{{donation.identifier}}</td>
                 <td>{{donation.donor.user.name}} {{donation.donor.user.surname}}</td>
                 <td>{{donation.appointment_date}}</td>
-                <td>{{donation.status}}</td>
-                <td>{{donation.status_date}}</td>
+                <td class="text-capitalize">{{donation.status}} at {{donation.status_date}}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary btn-block" @click="next(donation)">Next Stage</button>
+                    <button v-if="showButtons(donation)" type="button" class="btn btn-outline-primary btn-block" @click="next(donation)">{{donation.stageMessage}}</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-outline-danger btn-block" @click="reject(donation)">Reject</button>
+                    <button v-if="showButtons(donation)" type="button" class="btn btn-outline-danger btn-block" @click="reject(donation)">Reject</button>
                 </td>
 
 
@@ -38,30 +36,40 @@
 <script>
     import RejectionModal from "./RejectionModal";
     import FillDonationDataComponent from "./FillDonationDataComponent";
+    import FillBloodTypeModal from "./FillBloodTypeModal";
 
     export default {
         computed: {
             donations() {
                 return this.$store.getters.assistantDonations;
-            }
+            },
         },
 
         created() {
             this.$store.dispatch('getDonations');
         },
         methods: {
+            next(donation) {
+                if (donation.status === "requested") {
+                    this.$modal.show(FillDonationDataComponent, {
+                        donation: donation
+                    });
+                } else if (donation.status === "collected") {
+                    this.$modal.show(FillBloodTypeModal, {
+                        donation: donation
+                    });
+                } else {
+                    axios.post(donation.nextStagePath).then(() => this.$store.dispatch('getDonations'))
+                }
+            },
             reject(donation) {
                 this.$modal.show(RejectionModal, {
                     donation: donation
                 });
             },
-            next(donation) {
-                this.$modal.show(FillDonationDataComponent, {
-                    donation: donation
-                }, {
-                    height: 'auto'
-                });
-            }
+            showButtons(donation) {
+                return donation.status !== "stored" && donation.status !== "rejected";
+            },
         }
     }
 </script>
