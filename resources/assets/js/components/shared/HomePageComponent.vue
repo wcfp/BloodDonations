@@ -53,8 +53,6 @@
 </template>
 
 <script>
-    import initDataTable from "../../dataTableVue"
-
     export default {
         data() {
             return {}
@@ -74,9 +72,7 @@
                 }
 
                 if (this.userType === 'ADMIN') {
-                    this.$store.dispatch("getUsersAdmin").then(() => {
-                        initDataTable(".table");
-                    });
+                    this.$store.dispatch("getUsersAdmin")
                 }
             });
         },
