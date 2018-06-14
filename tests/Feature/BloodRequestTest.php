@@ -165,20 +165,4 @@ class BloodRequestTest extends TestCase
             ->assertStatus(403);
     }
 
-    public function testHistoryBloodRequestForSuccess()
-    {
-        factory(BloodRequest::class, 10)->create();
-        $this->actingAs(factory(User::class)->create(['role' => UserType::DOCTOR]));
-        $this
-            ->json('get', '/api/blood/request/history')
-            ->assertSuccessful()->assertJsonCount(10);
-        $this
-            ->json('post', '/api/blood/request', $this->data);
-        $this
-            ->json('get', '/api/blood/request/history')
-            ->assertSuccessful()->assertJsonCount(11);
-
-    }
-
-
 }

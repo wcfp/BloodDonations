@@ -10,7 +10,6 @@ namespace Tests\Feature;
 
 
 use App\BloodRequest;
-use APP\Http\Controllers;
 use App\Donation;
 use App\Donor;
 use App\User;
@@ -24,21 +23,14 @@ class AppointmentTest extends TestCase
     use RefreshDatabase;
     private $donor;
 
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->donor = factory(Donor::class)->create();
-    }
-
     public function testAppointmentInThePastFails()
     {
         $this->actingAs($this->donor->user);
 
         $this
-            ->json('post', '/api/donor/appointments', ['date' => Carbon::yesterday()->toDateTimeString()])
+            ->json('post', '/api/donor/appointments', ['date' => Carbon::yesterday()->format("Y-m-d H:i")])
             ->assertStatus(400)
-            ->assertJson(['message' => "You can't make an appointment for the past"]);
+            ->assertJson(['errors' => ["You can't make an appointment for the past"]]);
     }
 
     public function testCreateAppointmentSuccessfull()
@@ -46,7 +38,7 @@ class AppointmentTest extends TestCase
         $this->actingAs($this->donor->user);
 
         $this
-            ->json('post', '/api/donor/appointments', ['date' => Carbon::tomorrow()->toDateTimeString()])
+            ->json('post', '/api/donor/appointments', ['date' => Carbon::tomorrow()->format("Y-m-d H:i")])
             ->assertSuccessful();
     }
 
@@ -54,7 +46,7 @@ class AppointmentTest extends TestCase
     {
         $this->actingAs($this->donor->user);
 
-        $appointmentDate = Carbon::tomorrow()->toDateTimeString();
+        $appointmentDate = Carbon::tomorrow()->format("Y-m-d H:i");
         $this
             ->json('post', '/api/donor/appointments', ['date' => $appointmentDate])
             ->assertSuccessful();
@@ -128,7 +120,7 @@ class AppointmentTest extends TestCase
         $bloodRequest = factory(BloodRequest::class)->create();
 
         $this
-            ->json('patch', '/api/blood/requests/' . $bloodRequest->id. '/status', ['status' => 'accepted'])
+            ->json('patch', '/api/blood/requests/' . $bloodRequest->id . '/status', ['status' => 'accepted'])
             ->assertSuccessful();
 
         $this->assertEquals(BloodRequest::find($bloodRequest->id)->status, 'accepted');
@@ -145,6 +137,13 @@ class AppointmentTest extends TestCase
             ->assertSuccessful();
 
         $this->assertNotEquals(BloodRequest::find($bloodRequest->id)->status, 'requested');
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->donor = factory(Donor::class)->create();
     }
 
 }
