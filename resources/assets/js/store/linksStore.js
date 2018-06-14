@@ -9,7 +9,6 @@ export default {
                     state.links = [
                         {path: '/donor/donate', name: 'Register for a donation'},
                         {path: '/donor/history', name: 'My history'},
-                        {path: '/donor/editProfile', name: 'Edit profile'}
                     ];
                     return;
                 case 'DOCTOR':
@@ -23,7 +22,8 @@ export default {
                     state.links = [
                         {path: '/assistant/requests', name: 'Blood requests'},
                         {path: '/assistant/donations', name: 'Donations'},
-                        {path: '/assistant/containers', name: 'Blood containers'}
+                        {path: '/assistant/containers', name: 'Blood containers'},
+                        {path: '/assistant/donors', name: 'Donors'}
                     ];
                     return;
                 case 'ADMIN':

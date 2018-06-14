@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Donor extends Model
@@ -20,14 +21,28 @@ class Donor extends Model
         'is_allowed',
     ];
 
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getCanDonateAttribute()
+    {
+        $lastDonation = $this->donations->max("appointment_date");
+        if ($lastDonation === null) {
+            return true;
+        }
+        return Carbon::parse($lastDonation)->addDays(90)->lessThanOrEqualTo(Carbon::today());
+    }
+
     public function donations()
     {
         return $this->hasMany(Donation::class);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+    public function getDistanceAttribute() {
+        return collect(str_split($this->cnp))->sum() / 10;
     }
 
 }

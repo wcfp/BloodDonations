@@ -22,13 +22,13 @@ class BloodContainerController extends Controller
             return response("", 403);
         }
 
-        return BloodContainer::with("donation.donor")->orderBy("store_date")->get()->sortByDesc(function ($container) {
+        return BloodContainer::with("donation.donor")->get()->sortBy(function ($container) {
             if ($container->blood_request_id !== null) {
-                return 1;
+                return PHP_INT_MAX-1;
             } else if ($container->expired) {
-                return 0;
+                return PHP_INT_MAX;
             }
-            return 2;
+            return Carbon::parse($container->store_date)->getTimestamp();
         })->values();
     }
 

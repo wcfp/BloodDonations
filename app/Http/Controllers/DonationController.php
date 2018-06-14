@@ -11,6 +11,7 @@ use App\Mail\RejectionMail;
 use App\UserType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -28,7 +29,7 @@ class DonationController extends Controller
             return response("", 403);
         }
 
-        $date = Carbon::createFromFormat('Y-m-d H:i:s', $request->date);
+        $date = Carbon::createFromFormat('Y-m-d H:i', $request->date);
 
         if ($date->lessThan(Carbon::today())) {
             return response()->json(['errors' => ["You can't make an appointment for the past"]], 400);
@@ -199,7 +200,12 @@ class DonationController extends Controller
 
     public function sendRejectionMail(Donation $donation)
     {
-        Mail::to($donation->donor()->user->email)->send(new RejectionMail($donation));
+        Mail::send("rejectionMail", ["reason" => $donation->rejection_reason], function (Message $mail) use($donation) {
+            $mail->from('donations@codespace.ro');
+            $mail->sender('donations@codespace.ro');
+            $mail->to($donation->donor->user->email);
+            $mail->subject('About your recent donation');
+        });
     }
 
     public function moveToRegistered(Donation $donation, Request $request)

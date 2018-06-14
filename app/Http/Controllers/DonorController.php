@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Address;
 use App\Donor;
 use App\Http\Requests\CreateDonorProfileRequest;
+use App\Mail\CallForDonationMail;
 use App\UserType;
+use Grpc\Call;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class DonorController extends Controller
 {
@@ -48,7 +53,7 @@ class DonorController extends Controller
     }
 
 
-    public function updateDonorProfileInfo(Donor $donor, UpdateDonorProfileRequest $request)
+    public function updateDonorProfileInfo(Donor $donor, Request $request)
     {
         DB::beginTransaction();
 
@@ -80,5 +85,28 @@ class DonorController extends Controller
         }
 
         return Donor::where('user_id', auth()->id())->firstOrFail();
+    }
+
+    public function getAllDonors()
+    {
+        return Donor::with(['user', 'donations' => function ($query) {
+            return $query->select('appointment_date');
+        }])->withCount("donations")
+            ->get()
+            ->each(function ($donor) {
+                $donor->append(['canDonate', 'distance']);
+            })
+            ->sortByDesc("canDonate")
+            ->sortByDesc("isAllowed")->values();
+    }
+
+    public function callForDonation(Donor $donor)
+    {
+        Mail::send("callForDonationMail", [], function (Message $mail) use($donor) {
+            $mail->from('donations@codespace.ro');
+            $mail->sender('donations@codespace.ro');
+            $mail->to($donor->user->email);
+            $mail->subject('We miss you');
+        });
     }
 }

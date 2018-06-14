@@ -31,6 +31,9 @@
             donations() {
                 return this.$store.getters.donations;
             }
+        },
+        created() {
+            this.$store.dispatch("getAppointments");
         }
     }
 </script>

@@ -13,6 +13,7 @@ import RequestHistoryPageComponent from './components/doctor/RequestHistoryPageC
 import OngoingRequestsPageComponent from './components/doctor/OngoingRequestsPageComponent';
 import AssistantBloodRequestComponent from './components/assistant/AssistantBloodRequestComponent';
 import DonationsPageComponent from './components/assistant/DonationsPageComponent';
+import DonorsPageComponent from './components/assistant/DonorsPageComponent';
 
 import VueRouter from "vue-router"
 import Vue from "vue"
@@ -40,6 +41,7 @@ export default new VueRouter({
         {path: '/assistant/containers', component: BloodContainerComponent},
         {path: '/assistant/donations', component: DonationsPageComponent},
         {path: '/assistant/requests', component: AssistantBloodRequestComponent},
+        {path: '/assistant/donors', component: DonorsPageComponent},
     ],
     mode: 'history',
 });
